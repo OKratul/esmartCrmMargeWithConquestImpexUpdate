@@ -1,0 +1,13 @@
+Warranty :- 1year service Warranty
+	    Conditional warranty 
+	   6 months service warranty 
+           1year Replacement  
+
+payment Type:- cash on delivery along with work order
+
+delivery terms:- home delivery 
+		office delivery	
+		recieve from office 
+unit:- yard, 
+customer create from query 
+	       	

@@ -1,0 +1,11 @@
+vat(7.5%) & Ait(3%)
+warranty condition 
+
+add unit :- pound, roll, 
+
+Invoice:-
+	add extra field ,
+	
+
+Note:- when mail sent then no seal and signature will be found, and one message will show 
+ 

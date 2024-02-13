@@ -1,0 +1,292 @@
+.view{
+    position: relative;
+}
+.view::after{
+    content: 'View';
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: 5px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.view:hover::after{
+    display: block;
+}
+
+.edit{
+    position: relative;
+}
+.edit::after{
+    content: 'Edit';
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: 5px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.edit:hover::after{
+    display: block;
+}
+
+.make-quotation{
+    position: relative;
+}
+
+.make-quotation::after{
+    content: 'Make Qout';
+    position: absolute;
+    width: 100px;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.make-quotation:hover::after{
+    display: block;
+}
+
+
+
+.delete{
+    position: relative;
+}
+
+.delete::after{
+    content: 'Delete';
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: 5px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.delete:hover::after{
+    display: block;
+}
+
+.make-invoice{
+    position: relative;
+}
+
+.make-invoice::after{
+    content: 'Make Invoice';
+    width: 100px;
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.make-invoice:hover::after{
+    display: block;
+}
+
+.sent-mail{
+    position: relative;
+}
+
+.sent-mail::after{
+    content: 'Sent Mail';
+    width: 100px;
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.sent-mail:hover::after{
+    display: block;
+}
+
+.download{
+    position: relative;
+}
+
+.download::after{
+    content: 'Download';
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.download:hover::after{
+    display: block;
+}
+
+.history{
+    position: relative;
+}
+
+.history::after{
+    content: 'History';
+    width: 100px;
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.history:hover::after{
+    display: block;
+}
+
+.sms-sent{
+    position: relative;
+}
+
+.sms-sent::after{
+    content: 'Sent SmS';
+    width: 100px;
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.sms-sent:hover::after{
+    display: block;
+}
+
+
+
+.challan{
+    position: relative;
+}
+
+.challan::after{
+    content: 'Challan';
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.challan:hover::after{
+    display: block;
+}
+
+
+.money-receipt{
+    position: relative;
+}
+
+.money-receipt::after{
+    content: 'Money Receipt';
+    width: 120px;
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.money-receipt:hover::after{
+    display: block;
+}
+
+
+.payment{
+    position: relative;
+}
+
+.payment::after{
+    content: 'Payment';
+    width: 120px;
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.payment:hover::after{
+    display: block;
+}
+
+
+.expense{
+    position: relative;
+}
+
+.expense::after{
+    content: 'Expense';
+    width: 120px;
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.expense:hover::after{
+    display: block;
+}
+
+.note{
+    position: relative;
+}
+
+.note::after{
+    content: 'Notes';
+    position: absolute;
+    top: -25px;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    left: -15px;
+    background: #fee4bd;
+    display: none;
+    border-radius: 5px;
+}
+
+.note:hover::after{
+    display: block;
+}
