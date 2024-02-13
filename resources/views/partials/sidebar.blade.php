@@ -6,6 +6,11 @@
         <!-- User box -->
         <div class="user-box text-center">
             <img src="{{asset('images/pdf/pdf_logo2.png')}}" style="width: 150px" class="m-2 rounded">
+            <div class="bg-white rounded p-2" style="margin-left: 25px; border:1px solid #ccc">
+                <a href="{{route('conquest-dashboard')}}" target="_blank">
+                    <img class="" src="{{asset('bjhgj.png')}}" width="100px" >
+                </a>
+            </div>
             <img src="" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail avatar-md">
             <div class="dropdown">
                 <a href="#" class="user-name dropdown-toggle h5 mt-2 mb-1 d-block" data-bs-toggle="dropdown"  aria-expanded="false">

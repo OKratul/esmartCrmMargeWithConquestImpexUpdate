@@ -226,14 +226,6 @@
             </div>
 
         </li>
-        <li>
-            <div class="bg-white rounded-pill p-2" style="margin-left: 25px">
-                <a href="{{route('conquest-dashboard')}}" target="_blank">
-                    <img src="{{asset('bjhgj.png')}}" width="150px" >
-                </a>
-            </div>
-
-        </li>
     </ul>
 
     <div class="clearfix"></div>

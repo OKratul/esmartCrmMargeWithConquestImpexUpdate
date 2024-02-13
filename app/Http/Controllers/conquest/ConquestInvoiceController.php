@@ -177,9 +177,7 @@ class ConquestInvoiceController extends Controller
         return redirect()->back()->with('success','Invoice Update Successfully');
     }
 
-    /**
-     * @throws \Mpdf\MpdfException
-     */
+
     public function viewInvoice($id)
     {
         $invoice = ConquestInvoice::where('id', $id)
@@ -192,17 +190,22 @@ class ConquestInvoiceController extends Controller
             return "Invoice not found";
         }
 
-        try {
             // Create a new Mpdf instance
             $pdf = new Mpdf([
                 'format' => 'A4',
             ]);
 
             // Set the name for the PDF file
-            $invoiceName = 'Invoice_' . $invoice['invoice_number'] . '.pdf';
+            $invoiceName = 'Invoice_'.'.pdf';
+
+            $imagePath = public_path('bjhgj.png');
+            $imageData = file_get_contents($imagePath);
+            $logo = 'data:image/png;base64,' . base64_encode($imageData);
+
+            $contant = view('conquest/pdf/invoice', compact('invoice','logo'))->render();
 
             // Write HTML content to the PDF
-            $pdf->WriteHTML(view('conquest.pdf.invoice', compact('invoice'))->render());
+            $pdf->WriteHTML($contant);
 
             // Output the PDF as a string
             $pdfContent = $pdf->Output($invoiceName, 'S');
@@ -212,10 +215,7 @@ class ConquestInvoiceController extends Controller
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'inline; filename="' . $invoiceName . '"',
             ]);
-        } catch (\Exception $e) {
-            // Log or handle the exception
-            return "Error generating PDF: " . $e->getMessage();
-        }
+
 
     }
 

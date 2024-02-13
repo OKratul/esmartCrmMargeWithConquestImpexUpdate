@@ -149,10 +149,10 @@
                                                           <td>{{$assignRequest->users['name']}}</td>
                                                           <td>
                                                               <div class="d-flex gap-2">
-                                                                  <a href="#" class="btn btn-sm btn-success">
+                                                                  <a href="{{route('admin-approve-req',[$assignRequest->queries['id'],$assignRequest->reqIds['id'],$assignRequest->id])}}" class="btn btn-sm btn-success">
                                                                       Approve
                                                                   </a>
-                                                                  <a href="#" class="btn btn-sm btn-danger">
+                                                                  <a href="{{route('admin-decline-req',[$assignRequest->id])}}" class="btn btn-sm btn-danger">
                                                                       Decline
                                                                   </a>
                                                               </div>

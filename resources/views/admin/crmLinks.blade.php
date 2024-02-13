@@ -8,7 +8,7 @@
 
 <!-- / Content -->
 <div class="container d-flex align-items-center justify-content-center gap-5" style="height: 850px">
-    <div class="card" style="background: rgba(0,0,0,0.5)">
+    <div class="card crm-link" style="background: rgba(0,0,0,0.5)">
         <div class="card-body">
           <a href="{{route('dashboard')}}">
               <h3 class="text-white">eSmart Dashboard</h3>
@@ -16,7 +16,7 @@
           </a>
         </div>
     </div>
-    <div class="card"  style="background: rgba(0,0,0,0.5)">
+    <div class="card crm-link"  style="background: rgba(0,0,0,0.5)">
         <div class="card-body">
           <a href="{{route('conquest-dashboard')}}">
               <h3 class="text-white">ConquestImpex Dashboard</h3>
