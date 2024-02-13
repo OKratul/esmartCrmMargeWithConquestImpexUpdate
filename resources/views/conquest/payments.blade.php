@@ -1,4 +1,4 @@
-@include('user.partials.layoutHeader')
+@include('conquest.user.partials.layoutHeader')
 
 <!-- body start -->
 <body class="loading bg-soft-dark" data-layout-color="light"  data-layout-mode="default" data-layout-size="fluid" data-topbar-color="light" data-leftbar-position="fixed" data-leftbar-color="light" data-leftbar-size='default' data-sidebar-user='true'>
@@ -8,13 +8,13 @@
 
 
     <!-- Topbar Start -->
-    @include('user.partials.navbar')
+    @include('conquest.user.partials.navbar')
     <!-- end Topbar -->
 
     <!-- ========== Left Sidebar Start ========== -->
 
     <!-- Left Sidebar End -->
-    @include('user.partials.leftsideBar')
+    @include('conquest.user.partials.leftsideBar')
     <!-- ============================================================== -->
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
@@ -27,7 +27,7 @@
                 @include('error')
                 @include('success')
 
-                <div class="card">
+                <div class="card mt-5">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -92,7 +92,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{route('add-payment')}}" method="POST">
+                        <form action="{{route('conquest-add-payment')}}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="mb-2 col-6">
@@ -119,7 +119,7 @@
                             <div class="row">
                                 <div class="mb-2 col-6">
                                     @php
-                                        $accounts = \App\Models\Account::all();
+                                        $accounts = \App\Models\conquest\ConquestAccount::all();
                                     @endphp
                                     <label for="simpleinput" class="form-label">Select Account*</label>
                                     <select required name="account_no" class="form-select" aria-label="Default select example">
@@ -168,9 +168,9 @@
 
 <!-- Right Sidebar -->
 
-@include('user.partials.rightbar')
+@include('conquest.user.partials.rightbar')
 
 <!-- Scripts -->
-@include('user.partials.layoutScripts')
+@include('conquest.user.partials.layoutScripts')
 
 </body>

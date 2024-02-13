@@ -7,6 +7,8 @@ use App\Models\conquest\ConquestCustomer;
 use App\Models\conquest\ConquestInvoice;
 use App\Models\conquest\ConquestProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Mpdf\Mpdf;
 
 class ConquestInvoiceController extends Controller
 {
@@ -58,7 +60,7 @@ class ConquestInvoiceController extends Controller
             // Store the total price in an array
             $totalPrices[$productName] = $totalPrice;
 
-            $product = ConquestInvoice::where('product_code',$productName)->first();
+            $product = ConquestProduct::where('product_code',$productName)->first();
 
             $stockQty = $product['quantity'] - $quantityValue;
 
@@ -76,7 +78,9 @@ class ConquestInvoiceController extends Controller
         $quantity = implode('+', $quantity);
         $unitPrice = implode('+',$unitPrice);
 
-        $date = \request('date')->format('Y-m-d');
+        $date = \request('date');
+
+        $due = $totalSum - \request('paid_amount');
 
         $invoiceNo = mt_rand(1000000000, 9999999999);
 
@@ -104,36 +108,115 @@ class ConquestInvoiceController extends Controller
 
     }
 
+    public function editInvoice($id){
+
+        $this->validate(\request(),[
+            'customer' => 'required',
+            'product_name'=> 'required',
+            'quantity'=> 'required',
+            'unit_price'=> 'required',
+            'paid_amount' => 'required',
+        ]);
+
+        $productNames = \request('product_name');
+        $quantity = \request('quantity');
+        $unitPrice =\request('unit_price');
+
+
+        $totalPrices = [];
+
+        foreach ($productNames as $index => $productName) {
+            // Assuming $quantity and $unitPrice are arrays with the same indexes as $productNames
+            $quantityValue = $quantity[$index];
+            $unitPriceValue = $unitPrice[$index];
+
+            // Calculate total price for the current product
+            $totalPrice = $quantityValue * $unitPriceValue;
+
+            // Store the total price in an array
+            $totalPrices[$productName] = $totalPrice;
+
+            $product = ConquestProduct::where('product_code',$productName)->first();
+
+            $stockQty = $product['quantity'] - $quantityValue;
+
+            $product->update([
+                'quantity' => $stockQty,
+            ]);
+
+        }
+
+        $formattedTotalPrices = implode('+', $totalPrices);
+        $totalSum = array_sum($totalPrices);
+
+        $productName = implode('+', $productNames);
+        $quantity = implode('+', $quantity);
+        $unitPrice = implode('+',$unitPrice);
+
+        $due = $totalSum - \request('paid_amount');
+        $date = \request('date');
+
+        $invoice = ConquestInvoice::where('id',$id)->first();
+
+        ConquestInvoice::where('id',$id)->update([
+            'invoice_number' => $invoice['invoice_number'],
+            'customer_id' => \request('customer'),
+            'product_id' => $productName,
+            'quantity' => $quantity,
+            'unit_price' => $unitPrice,
+            'total_price' => $formattedTotalPrices,
+            'all_total_price'=> $totalSum,
+            'delivery_charge' => \request('delivery_charge'),
+            'paid' => \request('paid_amount'),
+            'due' => $due,
+            'status' => 'not sent',
+            'discount'=> \request('discount_amount'),
+            'date' =>  $date,
+        ]);
+
+        return redirect()->back()->with('success','Invoice Update Successfully');
+    }
+
+    /**
+     * @throws \Mpdf\MpdfException
+     */
     public function viewInvoice($id)
     {
-        $invoice = ConquestInvoice::where('id', $id)->first();
+        $invoice = ConquestInvoice::where('id', $id)
+            ->with('customers')
+            ->first();
 
-        $pdfOptions = new Options();
-        $pdfOptions->set('isHtml5ParserEnabled', true);
-        $pdfOptions->set('isPhpEnabled', true);
-        $pdfOptions->set('defaultFont', 'Arial');
+        if (!$invoice) {
+            // Handle the case when the invoice is not found
+            // For example, return an error message or redirect to another page
+            return "Invoice not found";
+        }
 
-        $dompdf = new Dompdf($pdfOptions);
+        try {
+            // Create a new Mpdf instance
+            $pdf = new Mpdf([
+                'format' => 'A4',
+            ]);
 
-        // Get the base64-encoded logo
-        $imagePath = public_path('assets/Logo2-02.png');
-        $imageData = file_get_contents($imagePath);
-        $logo = 'data:image/png;base64,' . base64_encode($imageData);
+            // Set the name for the PDF file
+            $invoiceName = 'Invoice_' . $invoice['invoice_number'] . '.pdf';
 
-        $html = view('pdf.invoice', compact('logo', 'invoice'))->render();
+            // Write HTML content to the PDF
+            $pdf->WriteHTML(view('conquest.pdf.invoice', compact('invoice'))->render());
 
-        $dompdf->loadHtml($html);
-        $dompdf->setBasePath(public_path());
+            // Output the PDF as a string
+            $pdfContent = $pdf->Output($invoiceName, 'S');
 
-        $dompdf->setPaper('A4', 'portrait');
+            // Return the response with PDF content and headers
+            return response($pdfContent, 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $invoiceName . '"',
+            ]);
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            return "Error generating PDF: " . $e->getMessage();
+        }
 
-        $dompdf->render();
-
-        $pdfContent = $dompdf->output();
-
-        return response($pdfContent, 200, [
-            'Content-Type' => 'application/pdf',
-        ]);
     }
 
 
@@ -173,6 +256,8 @@ class ConquestInvoiceController extends Controller
     public function deleteInvoice($id){
 
         ConquestInvoice::where('id',$id)->delete();
+
+        return redirect()->back()->with('success','Invoice Deleted Successfully');
 
     }
 

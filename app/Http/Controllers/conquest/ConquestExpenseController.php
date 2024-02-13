@@ -9,7 +9,7 @@ class ConquestExpenseController extends Controller
 {
     public function expenses(){
 
-        return view('expenses');
+        return view('conquest.expenses');
 
     }
 }

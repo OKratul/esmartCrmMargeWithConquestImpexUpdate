@@ -14,5 +14,5 @@ class ConquestTransectionController extends Controller
             ->orderByDesc('created_at')
             ->paginate(10);
 
-        return view('transections', compact('transections'));
+        return view('conquest.transections', compact('transections'));
     }}

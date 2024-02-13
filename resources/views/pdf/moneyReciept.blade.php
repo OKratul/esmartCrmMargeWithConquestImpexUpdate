@@ -41,7 +41,7 @@
 <body>
 <div class="money-receipt">
     <div style="line-height: 10px">
-        @if($invoices->logo == 'Esmart')
+        @if($payment->invoices['logo'] == 'Esmart')
             <img src="<?php echo public_path('images/pdf/pdf_logo2.png'); ?>" style="width: 180px">
         @else
             <img src="<?php echo public_path('images/pdf/Asset 1.png'); ?>" style="width: 180px">
@@ -59,7 +59,7 @@
     </div>
 
     <div>
-        @foreach($payments as $payment)
+
         <table style="margin-top: 5px">
                 <tr>
                     <td>Received with Thanks from:</td>
@@ -104,7 +104,7 @@
                     </td>
                 </tr>
         </table>
-        @endforeach
+
         <table>
             <tr>
                 <td style="text-align: center">

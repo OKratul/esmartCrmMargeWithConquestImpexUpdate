@@ -54,7 +54,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($products as $index=>$product)
-                                    <tr>
+                                    <tr class="text-black {{$product->quantity <= 10 ? 'table-danger' : ''}}">
                                         <th>#{{$product->product_code}}</th>
                                         <td>{{$product->name}}</td>
                                         <td>{{$product->size}}</td>

@@ -12,7 +12,7 @@ class ConquestAccountController extends Controller
 
         $accounts = ConquestAccount::all();
 
-        return view('accounts', compact('accounts'));
+        return view('conquest.accounts', compact('accounts'));
 
     }
 

@@ -17,7 +17,7 @@ class ConquestPaymentController extends Controller
         $payments = ConquestPayment::with('customers')->orderByDesc('created_at')->paginate(10);
         $customers = ConquestCustomer::all();
 
-        return view('payments',compact('payments','customers'));
+        return view('conquest.payments',compact('payments','customers'));
     }
 
     public function updatePaymentFromOld(){

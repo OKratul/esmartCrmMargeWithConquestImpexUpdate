@@ -67,11 +67,17 @@ class AdminLoginController extends Controller
                 ]);
 
             }
-            return to_route('dashboard');
+            return to_route('crm-links');
         }
         else{
             return redirect()->back()->withErrors(['msg'=>'wrong Credential']);
         }
+
+    }
+
+    public function crmLinks() {
+
+        return view('admin.crmLinks');
 
     }
 

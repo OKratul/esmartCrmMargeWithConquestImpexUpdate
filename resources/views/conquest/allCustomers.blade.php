@@ -24,9 +24,11 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
-                @include('error')
-                @include('success')
-                <div class="card">
+               <div class="mt-2">
+                   @include('error')
+                   @include('success')
+               </div>
+                <div class="card mt-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>

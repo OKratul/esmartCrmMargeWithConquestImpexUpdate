@@ -148,10 +148,10 @@
                     <div class="collapse" id="sidebarAuth">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="auth-login.html">All Account</a>
+                                <a href="{{route('accounts')}}">All Account</a>
                             </li>
                             <li>
-                                <a href="auth-register.html">Payments</a>
+                                <a href="{{route('admin-all-payments')}}">Payments</a>
                             </li>
                             <li>
                                 <a href="auth-recoverpw.html">Expenses</a>

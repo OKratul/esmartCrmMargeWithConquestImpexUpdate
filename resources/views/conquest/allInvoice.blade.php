@@ -189,7 +189,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('make-invoice') }}" method="POST">
+                                                    <form action="{{ route('conquest-edit-invoice',[$invoice->id]) }}" method="POST">
                                                         @csrf
                                                         <div class="row">
                                                             <div class="mb-2 col-12">

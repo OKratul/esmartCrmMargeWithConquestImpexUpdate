@@ -1,13 +1,17 @@
 @include('partials.layoutHead')
 
-
+<div id="bg">
+    <canvas></canvas>
+    <canvas></canvas>
+    <canvas></canvas>
+</div>
 
 <!-- / Content -->
-<div class="container-xxl">
-    <div class="authentication-wrapper authentication-basic container-p-y">
+<div class="container d-flex align-items-center justify-content-center" style="height: 850px">
+    <div class="authentication-wrapper authentication-basic container-p-y ">
         <div class="authentication-inner">
             <!-- Register -->
-            <div class="card bg-dark text-white">
+            <div class="card text-white" style="background: rgba(0,0,0,0.5)">
                 <div class="card-body">
                     <!-- Logo -->
                     <div class="app-brand justify-content-center p-4">

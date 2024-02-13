@@ -30,7 +30,7 @@
                   <h2>Invoice</h2>
               </td>
               <td style="text-align: right;">
-                  <img src="{{ $logo }}" alt="Company Logo" style="width: 150px; height: auto;">
+{{--                  <img src="{{ $logo }}" alt="Company Logo" style="width: 150px; height: auto;">--}}
               </td>
           </tr>
       </table>
@@ -42,9 +42,9 @@
             <td style="border: 1px solid #ccc; padding: 5px 10px 5px 0px">
                 <div style="margin-left: 5px">
                     <p>
-                        <b>Name:</b> {{$invoice->customers['name']}}<br>
-                        <b>Address:</b> {{$invoice->customers['address']}}<br>
-                        <b>Phone No:</b> {{$invoice->customers['phone']}}<br>
+{{--                        <b>Name:</b> {{$invoice->customers['name']}}<br>--}}
+{{--                        <b>Address:</b> {{$invoice->customers['address']}}<br>--}}
+{{--                        <b>Phone No:</b> {{$invoice->customers['phone']}}<br>--}}
                     </p>
                 </div>
             </td>
@@ -61,12 +61,13 @@
         </table>
         <table style="width: 100%">
             <tr>
-                <td style="text-align: left">
-                    Invoice Number:- #{{ $invoice->invoice_number }}</td>
+{{--                <td style="text-align: left">--}}
+{{--                    Invoice Number:- #{{ $invoice->invoice_number }}--}}
+{{--                </td>--}}
                 <td style="text-align: right">
-                    @if($invoice->date)
-                    <b>{{$invoice->date}}</b>
-                    @endif
+{{--                    @if($invoice->date)--}}
+{{--                         <b>{{$invoice->date}}</b>--}}
+{{--                    @endif--}}
                 </td>
             </tr>
             <!-- Add more details as needed -->
@@ -86,72 +87,72 @@
                     <td style="border: 1px solid #cccccc">Total </td>
                 </tr>
             </thead>
-            <tbody>
-            @php
-                $products = [];
+{{--            <tbody>--}}
+{{--            @php--}}
+{{--                $products = [];--}}
 
-                $product_ids = explode('+', $invoice['product_id']);
-                $quantities = explode('+', $invoice['quantity']);
-                $unitPrices = explode('+', $invoice['unit_price']);
-                $totalPrices = explode('+', $invoice['total_price']);
+{{--                $product_ids = explode('+', $invoice['product_id']);--}}
+{{--                $quantities = explode('+', $invoice['quantity']);--}}
+{{--                $unitPrices = explode('+', $invoice['unit_price']);--}}
+{{--                $totalPrices = explode('+', $invoice['total_price']);--}}
 
-                foreach ($product_ids as $index => $productId) {
-                    $products[] = [
-                        'productId' => $productId,
-                        'quantity' => $quantities[$index],
-                        'unit_price' => $unitPrices[$index],
-                        'total_price' => $totalPrices[$index],
-                    ];
-                }
-            @endphp
+{{--                foreach ($product_ids as $index => $productId) {--}}
+{{--                    $products[] = [--}}
+{{--                        'productId' => $productId,--}}
+{{--                        'quantity' => $quantities[$index],--}}
+{{--                        'unit_price' => $unitPrices[$index],--}}
+{{--                        'total_price' => $totalPrices[$index],--}}
+{{--                    ];--}}
+{{--                }--}}
+{{--            @endphp--}}
 
-            <tbody>
-            @php
-                $totalSum = 0; // Initialize the total sum variable
-            @endphp
-            @foreach($products as $index => $product)
-                @php
-                    $productInfo = \App\Models\Product::where('product_code', $product['productId'] )->first();
-                @endphp
-                @php
-                    $productInfo = \App\Models\Product::where('product_code', $product['productId'])->first();
-                    $totalSum += $product['total_price']; // Add the total_price to the total sum
-                @endphp
-                <tr style="border: 1px solid #cccccc">
-                    <td style="border: 1px solid #cccccc">{{ $loop->iteration }}</td>
-                    <td style="border: 1px solid #cccccc">
-                        {{$productInfo['name']}}
-                    </td>
-                    <td style="border: 1px solid #cccccc">{{ $product['productId'] }}</td>
+{{--            @php--}}
+{{--                $totalSum = 0; // Initialize the total sum variable--}}
+{{--            @endphp--}}
+{{--            @foreach($products as $index => $product)--}}
+{{--                @php--}}
+{{--                    $productInfo = \App\Models\conquest\ConquestProduct::where('product_code', $product['productId'] )->first();--}}
+{{--                @endphp--}}
+{{--                @php--}}
+{{--                    $productInfo = \App\Models\conquest\ConquestProduct::where('product_code', $product['productId'])->first();--}}
+{{--                    $totalSum += $product['total_price']; // Add the total_price to the total sum--}}
+{{--                @endphp--}}
+{{--                <tr style="border: 1px solid #cccccc">--}}
+{{--                    <td style="border: 1px solid #cccccc">{{ $loop->iteration }}</td>--}}
+{{--                    <td style="border: 1px solid #cccccc">--}}
+{{--                        {{$productInfo['name']}}--}}
+{{--                    </td>--}}
+{{--                    <td style="border: 1px solid #cccccc">{{ $product['productId'] }}</td>--}}
 
-                    <td style="border: 1px solid #cccccc">
-                        {{$productInfo['size']}}
-                    </td>
-                    <!-- Add other columns as needed -->
-                    <td style="border: 1px solid #cccccc">{{ $product['quantity'] }}</td>
-                    <td style="border: 1px solid #cccccc">{{ $product['unit_price'] }}</td>
-                    <td style="border: 1px solid #cccccc">{{ $product['total_price'] }} /-</td>
-                </tr>
-            @endforeach
-            <tr>
-                <td colspan="6" style="text-align: right">
-                    Total Amount:-
-                </td>
-                <td>
-                    {{$totalSum}} /-
-                </td>
-            </tr>
-            </tbody>
+{{--                    <td style="border: 1px solid #cccccc">--}}
+{{--                        {{$productInfo['size']}}--}}
+{{--                    </td>--}}
+{{--                    <!-- Add other columns as needed -->--}}
+{{--                    <td style="border: 1px solid #cccccc">{{ $product['quantity'] }}</td>--}}
+{{--                    <td style="border: 1px solid #cccccc">{{ $product['unit_price'] }}</td>--}}
+{{--                    <td style="border: 1px solid #cccccc">{{ $product['total_price'] }} /-</td>--}}
+{{--                </tr>--}}
+{{--            @endforeach--}}
+{{--            <tr>--}}
+{{--                <td colspan="6" style="text-align: right">--}}
+{{--                    Total Amount:---}}
+{{--                </td>--}}
+{{--                <td>--}}
+{{--                    {{$totalSum}} /---}}
+{{--                </td>--}}
+{{--            </tr>--}}
+{{--            </tbody>--}}
         </table>
 
         <div style="margin-top: 15px">
-            @php
-                $numberFormatter = new NumberFormatter("en", NumberFormatter::SPELLOUT);
-                $totalPriceInWords = ucwords($numberFormatter->format($totalSum));
-            @endphp
-                <p>
-                    <b>Total Price (In Word):- </b> {{$totalPriceInWords}} Tk only
-                </p>
+{{--            @php--}}
+{{--                $numberFormatter = new NumberFormatter("en", NumberFormatter::SPELLOUT);--}}
+{{--                $totalPriceInWords = ucwords($numberFormatter->format($totalSum));--}}
+{{--            @endphp--}}
+
+            <p>
+{{--                <b>Total Price (In Word):- </b> {{$totalPriceInWords}} Tk only--}}
+            </p>
         </div>
         <div style="margin-top: 100px">
             <table style="width: 100%">
@@ -177,4 +178,5 @@
     </div>
 
 </body>
+
 </html>

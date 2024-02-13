@@ -81,6 +81,8 @@ Route::group(['middleware'=>'adminAuth'],function (){
     Route::get('admin/dashboard',[AdminDashboardController::class,'dashboard'])->name('dashboard');
     Route::get('admin/add-user',[UserStaffAddController::class,'index'])->name('add-user');
 
+    Route::get('crm/links',[AdminLoginController::class,'crmLinks'])->name('crm-links');
+
     Route::post('register-user',[UserController::class,'registerUser'])->name('register-user');
 
     Route::get('admin/add-user-profile/{id}',[UserProfileController::class,'addProfile'])->name('add-user-profile');
@@ -371,6 +373,7 @@ Route::group(['middleware'=>'adminAuth'],function (){
         Route::get('/all-invoices',[ConquestInvoiceController::class,'allInvoice'])->name('conquest-all-invoices');
         Route::post('/make-invoice',[ConquestInvoiceController::class,'makeInvoice'])->name('conquest-make-invoice');
         Route::get('view-invoice/{id}',[ConquestInvoiceController::class,'viewInvoice'])->name('conquest-view-invoice');
+        Route::post('/invoice/{id}/edit-invoice',[ConquestInvoiceController::class,'editInvoice'])->name('conquest-edit-invoice');
 
         Route::get('/delete/{id}/invoice',[ConquestInvoiceController::class,'deleteInvoice'])->name('conquest-delete-invoice');
 

@@ -9,7 +9,7 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $guarded = [''];
+    protected $guarded = [ ];
 
     public function users (){
         return $this->belongsTo(User::class,'user_id');

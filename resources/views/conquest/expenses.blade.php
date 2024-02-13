@@ -1,4 +1,4 @@
-@include('user.partials.layoutHeader')
+@include('conquest.user.partials.layoutHeader')
 
 <!-- body start -->
 <body class="loading" data-layout-color="light"  data-layout-mode="default" data-layout-size="fluid" data-topbar-color="light" data-leftbar-position="fixed" data-leftbar-color="light" data-leftbar-size='default' data-sidebar-user='true'>
@@ -8,13 +8,13 @@
 
 
     <!-- Topbar Start -->
-    @include('user.partials.navbar')
+    @include('conquest.user.partials.navbar')
     <!-- end Topbar -->
 
     <!-- ========== Left Sidebar Start ========== -->
 
     <!-- Left Sidebar End -->
-    @include('user.partials.leftsideBar')
+    @include('conquest.user.partials.leftsideBar')
     <!-- ============================================================== -->
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
@@ -94,9 +94,9 @@
 
 <!-- Right Sidebar -->
 
-@include('user.partials.rightbar')
+@include('conquest.user.partials.rightbar')
 
 <!-- Scripts -->
-@include('user.partials.layoutScripts')
+@include('conquest.user.partials.layoutScripts')
 
 </body>

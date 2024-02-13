@@ -25,7 +25,7 @@ class PaymentController extends Controller
 
             $currentMonth = now()->startOfMonth();
             $payments = Payment::with('invoices','users','customers')
-                ->whereBetween('created_at',[$currentMonth,now()])
+                ->orderByDesc('created_at')
                 ->paginate(10);
 
             $paymentAmount = Payment::whereBetween('created_at',[$currentMonth,now()])->pluck('amount');
@@ -223,7 +223,9 @@ class PaymentController extends Controller
 
     public function moneyRec($id){
 
-        $payments = Payment::where('id',$id)->with('customers')->get()->all();
+        $payment = Payment::where('id',$id)->with('customers','invoices')->first();
+
+
         $pdf = new Mpdf([
             'format' => 'A4',
         ]);
@@ -232,7 +234,7 @@ class PaymentController extends Controller
 
 //        dd($payments);
 
-        $pdf->WriteHTML(view('pdf.moneyReciept', compact('payments'))->render());
+        $pdf->WriteHTML(view('pdf.moneyReciept', compact('payment'))->render());
 
         // Output the PDF as a string
         $pdfContent = $pdf->Output($challanName, 'S');
