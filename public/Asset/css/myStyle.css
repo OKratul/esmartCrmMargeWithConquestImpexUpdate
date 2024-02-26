@@ -333,6 +333,11 @@ body, html {
     transform: scale(1.1);
 }
 
+.status-content{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(100px, 130px));
+}
+
 @keyframes crm-link {
     from{
         transform: scale(0);

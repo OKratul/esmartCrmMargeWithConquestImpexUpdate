@@ -1,1 +1,154 @@
-"use strict";!function(l){function e(){this.$body=l("body"),this.$modal=l("#event-modal"),this.$calendar=l("#calendar"),this.$formEvent=l("#form-event"),this.$btnNewEvent=l("#btn-new-event"),this.$btnDeleteEvent=l("#btn-delete-event"),this.$btnSaveEvent=l("#btn-save-event"),this.$modalTitle=l("#modal-title"),this.$calendarObj=null,this.$selectedEvent=null,this.$newEventData=null}e.prototype.onEventClick=function(e){this.$formEvent[0].reset(),this.$formEvent.removeClass("was-validated"),this.$newEventData=null,this.$btnDeleteEvent.show(),this.$modalTitle.text("Edit Event"),this.$modal.show(),this.$selectedEvent=e.event,l("#event-title").val(this.$selectedEvent.title),l("#event-category").val(this.$selectedEvent.classNames[0])},e.prototype.onSelect=function(e){this.$formEvent[0].reset(),this.$formEvent.removeClass("was-validated"),this.$selectedEvent=null,this.$newEventData=e,this.$btnDeleteEvent.hide(),this.$modalTitle.text("Add New Event"),this.$modal.show(),this.$calendarObj.unselect()},e.prototype.init=function(){this.$modal=new bootstrap.Modal(document.getElementById("event-modal"),{keyboard:!1});var e=new Date(l.now());new FullCalendar.Draggable(document.getElementById("external-events"),{itemSelector:".external-event",eventData:function(e){return{title:e.innerText,className:l(e).data("class")}}});var e=[{title:"Meeting with Mr. Shreyu",start:new Date(l.now()+158e6),end:new Date(l.now()+338e6),className:"bg-warning"},{title:"Interview - Backend Engineer",start:e,end:e,className:"bg-success"},{title:"Phone Screen - Frontend Engineer",start:new Date(l.now()+168e6),className:"bg-info"},{title:"Buy Design Assets",start:new Date(l.now()+338e6),end:new Date(l.now()+4056e5),className:"bg-primary"}],a=this;a.$calendarObj=new FullCalendar.Calendar(a.$calendar[0],{slotDuration:"00:15:00",slotMinTime:"08:00:00",slotMaxTime:"19:00:00",themeSystem:"bootstrap",bootstrapFontAwesome:!1,buttonText:{today:"Today",month:"Month",week:"Week",day:"Day",list:"List",prev:"Prev",next:"Next"},initialView:"dayGridMonth",handleWindowResize:!0,height:l(window).height()-200,headerToolbar:{left:"prev,next today",center:"title",right:"dayGridMonth,timeGridWeek,timeGridDay,listMonth"},initialEvents:e,editable:!0,droppable:!0,selectable:!0,dateClick:function(e){a.onSelect(e)},eventClick:function(e){a.onEventClick(e)}}),a.$calendarObj.render(),a.$btnNewEvent.on("click",function(e){a.onSelect({date:new Date,allDay:!0})}),a.$formEvent.on("submit",function(e){e.preventDefault();var t,n=a.$formEvent[0];n.checkValidity()?(a.$selectedEvent?(a.$selectedEvent.setProp("title",l("#event-title").val()),a.$selectedEvent.setProp("classNames",[l("#event-category").val()])):(t={title:l("#event-title").val(),start:a.$newEventData.date,allDay:a.$newEventData.allDay,className:l("#event-category").val()},a.$calendarObj.addEvent(t)),a.$modal.hide()):(e.stopPropagation(),n.classList.add("was-validated"))}),l(a.$btnDeleteEvent.on("click",function(e){a.$selectedEvent&&(a.$selectedEvent.remove(),a.$selectedEvent=null,a.$modal.hide())}))},l.CalendarApp=new e,l.CalendarApp.Constructor=e}(window.jQuery),window.jQuery.CalendarApp.init();
+"use strict";
+
+(function($) {
+    function CalendarApp() {
+        this.$body = $("body");
+        this.$modal = $("#event-modal");
+        this.$calendar = $("#calendar");
+        this.$formEvent = $("#form-event");
+        this.$btnNewEvent = $("#btn-new-event");
+        this.$btnDeleteEvent = $("#btn-delete-event");
+        this.$btnSaveEvent = $("#btn-save-event");
+        this.$modalTitle = $("#modal-title");
+        this.$calendarObj = null;
+        this.$selectedEvent = null;
+        this.$newEventData = null;
+    }
+
+    CalendarApp.prototype.onEventClick = function(event) {
+        this.$formEvent[0].reset();
+        this.$formEvent.removeClass("was-validated");
+        this.$newEventData = null;
+        this.$btnDeleteEvent.show();
+        this.$modalTitle.text("Edit Event");
+        this.$modal.show();
+        this.$selectedEvent = event.event;
+
+        $("#event-title").val(this.$selectedEvent.title);
+        $("#event-category").val(this.$selectedEvent.classNames[0]);
+    };
+
+    CalendarApp.prototype.onSelect = function(event) {
+        this.$formEvent[0].reset();
+        this.$formEvent.removeClass("was-validated");
+        this.$selectedEvent = null;
+        this.$newEventData = event;
+        this.$btnDeleteEvent.hide();
+        this.$modalTitle.text("Add New Event");
+        this.$modal.show();
+        this.$calendarObj.unselect();
+    };
+
+    CalendarApp.prototype.init = function() {
+        this.$modal = new bootstrap.Modal(document.getElementById("event-modal"), { keyboard: false });
+        var eventsData = [
+            { title: "Meeting with Mr. Shreyu", start: new Date($.now() + 158e6), end: new Date($.now() + 338e6), className: "bg-warning" },
+            { title: "Interview - Backend Engineer", start: new Date($.now()), end: new Date($.now()), className: "bg-success" },
+            { title: "Phone Screen - Frontend Engineer", start: new Date($.now() + 168e6), className: "bg-info" },
+            { title: "Buy Design Assets", start: new Date($.now() + 338e6), end: new Date($.now() + 4056e5), className: "bg-primary" }
+        ];
+
+        var self = this;
+        self.$calendarObj = new FullCalendar.Calendar(self.$calendar[0], {
+            slotDuration: "00:15:00",
+            slotMinTime: "08:00:00",
+            slotMaxTime: "19:00:00",
+            themeSystem: "bootstrap",
+            bootstrapFontAwesome: false,
+            buttonText: {
+                today: "Today",
+                month: "Month",
+                week: "Week",
+                day: "Day",
+                list: "List",
+                prev: "Prev",
+                next: "Next"
+            },
+            initialView: "dayGridMonth",
+            handleWindowResize: true,
+            height: $(window).height() - 200,
+            headerToolbar: {
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+            },
+            initialEvents: eventsData,
+            editable: true,
+            droppable: true,
+            selectable: true,
+            dateClick: function(event) {
+                self.onSelect(event);
+            },
+            eventClick: function(event) {
+                self.onEventClick(event);
+            }
+        });
+        self.$calendarObj.render();
+
+        self.$btnNewEvent.on("click", function(event) {
+            self.onSelect({ date: new Date(), allDay: true });
+        });
+
+        // self.$formEvent.on("submit", function(event) {
+        //     event.preventDefault();
+        //     var form = self.$formEvent[0];
+        //     if (form.checkValidity()) {
+        //         if (self.$selectedEvent) {
+        //             self.$selectedEvent.setProp("title", $("#event-title").val());
+        //             self.$selectedEvent.setProp("classNames", [$("#event-category").val()]);
+        //         } else {
+        //             var eventData = {
+        //                 title: $("#event-title").val(),
+        //                 start: self.$newEventData.date,
+        //                 allDay: self.$newEventData.allDay,
+        //                 className: $("#event-category").val()
+        //             };
+        //             self.$calendarObj.addEvent(eventData);
+        //         }
+        //         self.$modal.hide();
+        //     } else {
+        //         event.stopPropagation();
+        //         form.classList.add("was-validated");
+        //     }
+        // });
+
+        self.$btnDeleteEvent.on("click", function(event) {
+            if (self.$selectedEvent) {
+                self.$selectedEvent.remove();
+                self.$selectedEvent = null;
+                self.$modal.hide();
+            }
+        });
+    };
+
+    $.CalendarApp = new CalendarApp();
+    $.CalendarApp.init();
+})(window.jQuery);
+
+// Form Submit Code
+
+$.CalendarApp = new CalendarApp();
+$.CalendarApp.init();
+
+// Event listener for form submission
+$("#form-event").on("submit", function(event) {
+    event.preventDefault();
+    var formData = $(this).serialize(); // Serialize form data
+    $.ajax({
+        type: "POST",
+        url: "{{ route('route_name_for_addEvent') }}", // Replace 'route_name_for_addEvent' with the actual route name
+        data: formData,
+        success: function(response) {
+            console.log(response);
+            // Handle success response here, for example, show a success message
+            alert("Event added successfully!");
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            // Handle error response here, for example, show an error message
+            alert("Error adding event. Please try again later.");
+        }
+    });
+});
+
+

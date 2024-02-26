@@ -11,7 +11,6 @@
                     <img class="" src="{{asset('bjhgj.png')}}" width="100px" >
                 </a>
             </div>
-            <img src="" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail avatar-md">
             <div class="dropdown">
                 <a href="#" class="user-name dropdown-toggle h5 mt-2 mb-1 d-block" data-bs-toggle="dropdown"  aria-expanded="false">
                     @if(auth()->guard('web')->check())

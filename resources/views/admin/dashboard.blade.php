@@ -55,7 +55,7 @@
                                               </form>
                                           </div>
                                       </div>
-                                        <div class="d-flex justify-content-between">
+                                        <div class="status-content">
                                             <div class="card " style="border-left:5px solid #F39C12 ; background: rgba(252, 159, 18, 0.3) ">
                                                 <div class="card-body">
                                                     <h4>{{$pendingQuery}}</h4>
@@ -80,7 +80,7 @@
                                                 @endphp
 
                                                 <div class="card"
-                                                     style="border-left: 3px solid #0d6af4; background: {{ $backgroundColor }}; width: 150px">
+                                                     style="border-left: 3px solid #0d6af4; background: {{ $backgroundColor }};">
                                                     <div class="card-body">
                                                         <h6>{{ $statusCount['statusName'] }}</h6>
                                                         <h5>{{ $statusCount['count'] }}</h5>

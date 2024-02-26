@@ -45,6 +45,8 @@
 
                         </div> <!-- end col-->
 
+    @include('error')
+    @include('success')
                         <div class="col-lg-9">
                             <div class="card">
                                 <div class="card-body">
@@ -67,7 +69,8 @@
                                     <h5 class="modal-title" id="modal-title">Event</h5>
                                 </div>
                                 <div class="modal-body px-4 pb-4 pt-0">
-                                    <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                    <form action="{{route('admin-calendar-add')}}" method="POST" class="needs-validation" name="event-form" id="form-event" novalidate>
+                                      @csrf
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="mb-3">
@@ -126,6 +129,8 @@
 
 
 @include('partials.layoutEnd')
+
+
 
 
 

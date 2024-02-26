@@ -33,7 +33,7 @@ class AdminCalendarController extends Controller
     public function addEvent(){
 
         $this->validate(\request(),[
-            'event-details' => 'required',
+            'title' => 'required',
             'end_date' => 'required',
         ]);
 
@@ -43,7 +43,7 @@ class AdminCalendarController extends Controller
             'admin_id' => $admin_id,
             'start_time' => \request('start_time'),
             'end_time' => \request('end_date'),
-            'note' => \request('event-details'),
+            'note' => \request('title'),
         ]);
 
         return redirect()->back()->with('success', 'Event Added Successfully');
