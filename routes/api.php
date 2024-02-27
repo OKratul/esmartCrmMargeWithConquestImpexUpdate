@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::post('/login',[LoginApiController::class,'login'])->middleware('api');
+//Route::post('/login',[LoginApiController::class,'login'])->middleware('api');
 
 
-Route::post('/customer/query',[ApiController::class,'customerQuery'])->middleware('ip-restriction');
+//Route::post('/customer/query',[ApiController::class,'customerQuery'])->middleware('ip-restriction');

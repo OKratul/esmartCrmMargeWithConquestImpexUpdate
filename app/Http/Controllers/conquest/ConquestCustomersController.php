@@ -4,7 +4,9 @@ namespace App\Http\Controllers\conquest;
 
 use App\Http\Controllers\Controller;
 use App\Models\conquest\ConquestCustomer;
+use App\Models\CustomerModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConquestCustomersController extends Controller
 {
@@ -94,4 +96,28 @@ class ConquestCustomersController extends Controller
 
 //        dd($customer);
     }
+
+    public function insertOldCustomer (){
+
+        $oldCustomers = DB::table('wpdf_ism_customer')->get();
+
+        foreach ($oldCustomers as $customer){
+
+            ConquestCustomer::create([
+                'id' => $customer->Customer_ID,
+                'name'=> $customer->Name,
+                'phone' => $customer->Phone,
+                'email' => $customer->Email,
+                'email2' => $customer->Email2,
+                'address' => $customer->Address,
+                'contact_person' => $customer->Contact_Person,
+            ]);
+
+        }
+
+        return redirect()->back()->with('success','Old Customer Data Inserted');
+
+    }
+
+
 }

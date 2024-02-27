@@ -25,9 +25,9 @@ class AdminImportSeeder extends Seeder
                 'password' => bcrypt('omar064636ratul'),
             ],
             [
-                'username'  => "MD Shakil Ahmed",
-                'email'=> 'shakil@conquestimpex.com',
-                'password' => bcrypt('shakilahmed147852##'),
+                'username'  => "rythmm",
+                'email'=> 'rythmm@conquestimpex.com',
+                'password' => bcrypt('rythmm@@online50'),
             ]
         ];
 

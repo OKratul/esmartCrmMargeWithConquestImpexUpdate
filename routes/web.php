@@ -47,6 +47,7 @@ use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserStaffAddController;
+use App\Models\conquest\ConquestProduct;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PromotionMialController;
 /*
@@ -354,6 +355,9 @@ Route::group(['middleware'=>'adminAuth'],function (){
         Route::get('/customer/{id}/delete',[ConquestCustomersController::class,'deleteCustomer'])->name('conquest-customer-delete');
         Route::get('/customer/{id}/profile',[ConquestCustomersController::class,'customerProfile'])->name('conquest-customer-profile');
 
+        Route::any('/insert/customer-old-data',[ConquestCustomersController::class,'insertOldCustomer']);
+
+
 //     =======   Conquest Products Route =======
 
         Route::get('/products',[ConquestProductController::class,'allProduct'])->name('conquest-all-products');
@@ -368,6 +372,8 @@ Route::group(['middleware'=>'adminAuth'],function (){
 
         Route::get('/delete/{id}/product',[ConquestProductController::class,'deleteProduct'])->name('conquest-delete-product');
 
+        Route::any('/insert/old-product', [ConquestProductController::class, 'insertOldProduct']);
+
 //        Conquest Invoice Route =====
 
         Route::get('/all-invoices',[ConquestInvoiceController::class,'allInvoice'])->name('conquest-all-invoices');
@@ -380,6 +386,8 @@ Route::group(['middleware'=>'adminAuth'],function (){
         Route::get('/challan/{id}/pdf',[ConquestInvoiceController::class,'challan'])->name('conquest-challan');
 
         Route::get('/money-receipt/{id}',[ConquestInvoiceController::class,'moneyReceipt'])->name('conquest-money-receipt');
+
+
 
 //========= Conquest Payment Route =========
 

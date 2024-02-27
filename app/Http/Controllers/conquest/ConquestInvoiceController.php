@@ -321,6 +321,7 @@ class ConquestInvoiceController extends Controller
                 'all_total_price' => $invoice->All_Total_Price,
                 'delivery_charge' => $invoice->Delivery_Charge,
                 'paid' => $invoice->Paid,
+                'due' => '00',
                 'warranty' => $invoice->Warranty,
                 'discount' => $invoice->Discount,
                 'extra_name' => $invoice->Extra_Name,

@@ -132,7 +132,7 @@ class ConquestProductController extends Controller
 
     public function updateOldStock()
     {
-        $oldStocks = DB::table('wpdf_ism_stock')->get();
+        $oldStocks = DB::table('wpdf_Ism_Stock')->get();
 
         foreach ($oldStocks as $oldStock){
 
@@ -173,4 +173,26 @@ class ConquestProductController extends Controller
         return redirect()->back();
 
     }
+
+
+    public function insertOldProduct(){
+
+        $oldProducts = DB::table('wpdf_ism_product')->get();
+
+        foreach ($oldProducts as $product){
+            ConquestProduct::create([
+                'id' => $product->ID,
+                'product_code' => $product->Product_ID,
+                'name' => $product->Name,
+                'size' => $product->Size,
+                'quantity' => $product->Quantity,
+                'buying_price' => null,
+            ]);
+        }
+
+        return redirect()->back()->with('success','Old Data Updated');
+
+    }
+
+
 }
