@@ -106,7 +106,7 @@ class PaymentController extends Controller
             ]);
 
 
-            $invoice = Invoice::where('id',$invoice_id)->with('payments')->get();
+            $invoice = Invoice::where('id',$invoice_id)->with('payments')->first();
             $products = json_decode($invoice['products'], true);
 
             $totalInvoiceValue = 0 ;

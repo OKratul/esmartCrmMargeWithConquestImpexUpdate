@@ -41,11 +41,7 @@
 <body>
 <div class="money-receipt">
     <div style="line-height: 10px">
-        @if($payment->invoices['logo'] == 'Esmart')
-            <img src="<?php echo public_path('images/pdf/pdf_logo2.png'); ?>" style="width: 180px">
-        @else
-            <img src="<?php echo public_path('images/pdf/Asset 1.png'); ?>" style="width: 180px">
-        @endif
+        <img class="logo" src="{{ public_path("images/pdf/pdf_logo2.png") }}" alt="eSmart.com.bd">
         <p class="address">House no 1/A, Flat B2</p>
         <p class="address">Eskaton Garden Road, Dhaka 1000</p>
         <p class="address">Hotline: 09617778877, 01316448804</p>
@@ -54,13 +50,13 @@
     </div>
 
     <div>
-        <div class="align-left">Sl NO:- #MR-{{\Carbon\Carbon::now()->format('ymdh')}}</div>
+        <div class="align-left">Sl NO:-</div>
         <div class="align-right"><?php $date = \Carbon\Carbon::now()->format('d M, Y'); ?><strong>{{$date}}</strong></div>
     </div>
 
     <div>
-
-        <table style="margin-top: 5px">
+        @foreach($payments as $payment)
+            <table style="margin-top: 5px">
                 <tr>
                     <td>Received with Thanks from:</td>
                     <td style="text-align: right">
@@ -102,13 +98,14 @@
                     <td style="text-align: right">
                         <strong>{{ $payment->payment_date}}</strong>
                     </td>
-                </tr>
-        </table>
 
+                </tr>
+            </table>
+        @endforeach
         <table>
             <tr>
                 <td style="text-align: center">
-                    <img src="{{public_path('images/pdf/seal_logo2-1.png')}}" style="width: 90px; vertical-align: bottom"><br>
+                    <img src="{{public_path('images/pdf/seal_logo2-1.jpeg')}}" style="width: 100px; vertical-align: bottom"><br>
                     Authorised Signature
                 </td>
                 <td style="text-align: center;vertical-align: bottom">

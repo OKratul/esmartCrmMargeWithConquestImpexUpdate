@@ -379,6 +379,8 @@ Route::group(['middleware'=>'adminAuth'],function (){
 
         Route::get('/challan/{id}/pdf',[ConquestInvoiceController::class,'challan'])->name('conquest-challan');
 
+        Route::get('/money-receipt/{id}',[ConquestInvoiceController::class,'moneyReceipt'])->name('conquest-money-receipt');
+
 //========= Conquest Payment Route =========
 
         Route::get('/all-payments',[ConquestPaymentController::class,'allPayments'])->name('conquest-payments');

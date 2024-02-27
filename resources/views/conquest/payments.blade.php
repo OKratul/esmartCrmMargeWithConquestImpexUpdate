@@ -62,7 +62,7 @@
                                         <td>{{$payment->pay_type}}</td>
                                         <td>{{$payment->invoice_no}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-outline-primary">Money.Rec</a>
+                                            <a href="{{route('conquest-money-receipt',[$payment['id']])}}" target="_blank" class="btn btn-outline-primary">Money.Rec</a>
                                             <button class="btn btn-outline-primary">View</button>
                                             <a class="btn btn-outline-danger">Delete</a>
                                         </td>

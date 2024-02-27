@@ -117,8 +117,8 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="mb-2 col-6">
-                                                                    <label for="simpleinput" class="form-label">Email-1 *</label>
-                                                                    <input value="{{$customer->email}}" name="email-1" type="email" required id="simpleinput" class="form-control">
+                                                                    <label for="simpleinput" class="form-label">Email-1</label>
+                                                                    <input value="{{$customer->email}}" name="email-1" type="email" id="simpleinput" class="form-control">
                                                                 </div>
                                                                 <div class="mb-2 col-6">
                                                                     <label for="simpleinput" class="form-label">Email-2</label>
@@ -127,7 +127,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="mb-2 col-6">
-                                                                    <label for="simpleinput" class="form-label">Address *</label>
+                                                                    <label for="simpleinput" class="form-label">Address</label>
                                                                     <textarea name="address" class="form-control" id="example-textarea" rows="3">
                                                                         {{$customer->address}}
                                                                     </textarea>

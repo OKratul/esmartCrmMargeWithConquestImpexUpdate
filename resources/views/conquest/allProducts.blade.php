@@ -263,8 +263,8 @@
                         </div>
                         <div class="row">
                             <div class="mb-2 col-6">
-                                <label for="simpleinput" class="form-label">Buy Price *</label>
-                                <input name="buy_price" type="text" required id="simpleinput" class="form-control">
+                                <label for="simpleinput" class="form-label">Buy Price </label>
+                                <input name="buy_price" type="text" id="simpleinput" class="form-control">
                             </div>
                             <div class="mb-2 col-6">
                                 <label for="simpleinput" class="form-label">Quantity</label>

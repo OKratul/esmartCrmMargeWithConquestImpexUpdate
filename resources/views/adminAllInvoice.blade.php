@@ -121,7 +121,11 @@
                                     </thead>
                                     <tbody>
                                     @foreach($invoices as $invoice)
-                                        <tr>
+                                        <tr style=" {{ $invoice->status == 'Paid' ? 'background-image: url('.asset('images/paid.jpg').')' : '' }};
+                                        background-position: center ;
+                                        background-repeat: no-repeat;
+
+                                        ">
                                             <td class="align-middle">
                                                 {{$invoice->created_at->format('d-M-Y')}}<br>
                                                 {{$invoice->created_at->format('H:i:s A')}}

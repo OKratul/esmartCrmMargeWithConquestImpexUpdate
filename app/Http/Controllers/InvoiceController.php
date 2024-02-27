@@ -314,10 +314,10 @@ class InvoiceController extends Controller
     }
 
     public function moneyReceipt($invoice_id){
-        $invoices = Invoice::where('id',$invoice_id)->with('users','customers','payments')->first();
+        $invoice = Invoice::where('id',$invoice_id)->with('users','customers','payments')->first();
 
-        $payments = $invoices['payments'];
-        $invoiceNo = $invoices['invoice_no'];
+        $payments = $invoice['payments'];
+        $invoiceNo = $invoice['invoice_no'];
 
 //        dd($payments);
 
@@ -327,7 +327,7 @@ class InvoiceController extends Controller
         $challanNumb = rand(111111,999999);
         $challanName = 'Challan'.rand(111111,999999).'.pdf';
 
-        $pdf->WriteHTML(view('pdf.moneyReciept', compact('payments','invoices'))->render());
+        $pdf->WriteHTML(view('pdf.moneyReciept', compact('payments','invoice'))->render());
 
         // Output the PDF as a string
         $pdfContent = $pdf->Output($challanName, 'S');

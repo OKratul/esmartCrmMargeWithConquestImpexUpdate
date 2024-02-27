@@ -5,6 +5,7 @@ namespace App\Http\Controllers\conquest;
 use App\Http\Controllers\Controller;
 use App\Models\conquest\ConquestCustomer;
 use App\Models\conquest\ConquestInvoice;
+use App\Models\conquest\ConquestPayment;
 use App\Models\conquest\ConquestProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -198,7 +199,7 @@ class ConquestInvoiceController extends Controller
             // Set the name for the PDF file
             $invoiceName = 'Invoice_'.'.pdf';
 
-            $imagePath = public_path('bjhgj.png');
+            $imagePath = public_path('Asset 1Impex Logo.png');
             $imageData = file_get_contents($imagePath);
             $logo = 'data:image/png;base64,' . base64_encode($imageData);
 
@@ -206,6 +207,7 @@ class ConquestInvoiceController extends Controller
 
             // Write HTML content to the PDF
             $pdf->WriteHTML($contant);
+//            $invoiceDate = $invoice['date']->format('d M Y');
 
             // Output the PDF as a string
             $pdfContent = $pdf->Output($invoiceName, 'S');
@@ -215,6 +217,7 @@ class ConquestInvoiceController extends Controller
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'inline; filename="' . $invoiceName . '"',
             ]);
+//        dd($invoice);
 
 
     }
@@ -222,32 +225,72 @@ class ConquestInvoiceController extends Controller
 
     public function challan($id){
 
-        $invoice = ConquestInvoice::where('id', $id)->first();
-        $pdfOptions = new Options();
-        $pdfOptions->set('isHtml5ParserEnabled', true);
-        $pdfOptions->set('isPhpEnabled', true);
-        $pdfOptions->set('defaultFont', 'Arial');
+        $invoice = ConquestInvoice::where('id', $id)
+            ->with('customers')
+            ->first();
 
-        $imagePath = public_path('assets/Logo2-02.png');
+        if (!$invoice) {
+            // Handle the case when the invoice is not found
+            // For example, return an error message or redirect to another page
+            return "Invoice not found";
+        }
+
+        // Create a new Mpdf instance
+        $pdf = new Mpdf([
+            'format' => 'A4',
+        ]);
+
+        // Set the name for the PDF file
+        $invoiceName = 'Challan'.'.pdf';
+
+        $imagePath = public_path('Asset 1Impex Logo.png');
         $imageData = file_get_contents($imagePath);
         $logo = 'data:image/png;base64,' . base64_encode($imageData);
 
-        $dompdf = new Dompdf($pdfOptions);
+        $contant = view('conquest/pdf/challan', compact('invoice','logo'))->render();
 
-        $html = view('pdf.challan', compact('logo', 'invoice'))->render();
+        // Write HTML content to the PDF
+        $pdf->WriteHTML($contant);
+//            $invoiceDate = $invoice['date']->format('d M Y');
 
-        $dompdf->loadHtml($html);
-        $dompdf->setBasePath(public_path());
+        // Output the PDF as a string
+        $pdfContent = $pdf->Output($invoiceName, 'S');
 
-        $dompdf->setPaper('A4', 'portrait');
-
-        $dompdf->render();
-
-
-        $pdfContent = $dompdf->output();
-
+        // Return the response with PDF content and headers
         return response($pdfContent, 200, [
             'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $invoiceName . '"',
+        ]);
+
+    }
+
+
+    public function moneyReceipt($id){
+        $invoice = ConquestPayment::where('id',$id)->with('customers')->first();
+
+        $pdf = new Mpdf([
+            'format' => 'A4',
+        ]);
+
+        $invoiceName = 'Challan'.'.pdf';
+
+        $imagePath = public_path('Asset 1Impex Logo.png');
+        $imageData = file_get_contents($imagePath);
+        $logo = 'data:image/png;base64,' . base64_encode($imageData);
+
+        $contant = view('conquest/pdf/moneyReceipt', compact('invoice','logo'))->render();
+
+
+        $pdf->WriteHTML($contant);
+//            $invoiceDate = $invoice['date']->format('d M Y');
+
+        // Output the PDF as a string
+        $pdfContent = $pdf->Output($invoiceName, 'S');
+
+        // Return the response with PDF content and headers
+        return response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $invoiceName . '"',
         ]);
 
     }
