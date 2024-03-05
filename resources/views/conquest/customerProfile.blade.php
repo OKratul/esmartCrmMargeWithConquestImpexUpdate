@@ -50,7 +50,7 @@
                                             @php
                                                 $totalPay = 0;
                                                 foreach ($customer->invoices as $invoice){
-                                                    $totalPay += $invoice->paid;
+                                                    $totalPay += (float)$invoice->paid;
                                                 }
                                             @endphp
                                             <h3>Total Paid <span class="badge bg-secondary">{{count($customer->invoices)}}</span></h3>
@@ -62,9 +62,10 @@
                                             @php
                                                 $totalDue = 0;
                                                 foreach ($customer->invoices as $invoice){
-                                                    $totalDue += $invoice->due;
+                                                    $totalDue += (float) $invoice->due;
                                                 }
                                             @endphp
+
                                             <h3>Total Due <span class="badge bg-secondary">{{count($customer->invoices)}}</span></h3>
                                             <h4>
                                                 ${{$totalDue}}
@@ -116,7 +117,7 @@
                                                                     $productCodes = explode('+', $invoice->product_id);
                                                                     $productNames =[];
                                                                         foreach ($productCodes as $productCode){
-                                                                            $productNames[] = \App\Models\Product::where('product_code',$productCode)->first();
+                                                                            $productNames[] = \App\Models\conquest\ConquestProduct::where('product_code',$productCode)->first();
                                                                         }
                                                                 @endphp
 
