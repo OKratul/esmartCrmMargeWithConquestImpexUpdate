@@ -29,6 +29,9 @@
     <link href="{{asset('Asset/css/timeline.css')}}" type="text/css" rel="stylesheet">
     <link href="{{asset('Asset/css/myStyle.css')}}" type="text/css" rel="stylesheet">
 
+    <link href="{{asset('Asset/assets/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('Asset/assets/libs/dropify/css/dropify.min.css')}}" rel="stylesheet" type="text/css">
+
     <style>
         /* For Chrome, Edge, and Safari */
         ::-webkit-scrollbar {

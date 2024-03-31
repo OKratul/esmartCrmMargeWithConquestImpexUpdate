@@ -186,7 +186,8 @@ class UserDashboardController extends Controller
         $queryCount = Query::where('user_id',Auth::user()->id)->get()->count();
 
         $tasks = AssignTask::where('user_id', Auth::user()->id)
-            ->orderBy('start_date')
+            ->where('status', '!=', 'approve')
+            ->orderByDesc('start_date')
             ->paginate(5)
             ->withQueryString();
 

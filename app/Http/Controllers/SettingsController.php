@@ -10,6 +10,7 @@ use App\Models\PaymentType;
 use App\Models\QuerySource;
 use App\Models\QueryStatus;
 use App\Models\Unit;
+use App\Models\User;
 use App\Models\Warranty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,7 +71,9 @@ class SettingsController extends Controller
 
     public function optionsView(){
 
-        return view('adminOptions');
+        $users = User::all();
+
+        return view('adminOptions', compact('users'));
 
     }
 

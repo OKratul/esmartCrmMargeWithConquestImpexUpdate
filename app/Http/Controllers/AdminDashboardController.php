@@ -187,7 +187,10 @@ class AdminDashboardController extends Controller
         $assignRequests = AssignReq::with('users', 'queries', 'reqIds')->get()->all();
 
 //      ======== Task ===========
-        $totalTasks = AssignTask::with('users.profiles')->get();
+        $totalTasks = AssignTask::with('users.profiles')
+            ->where('status','!=','approve')
+            ->orderByDesc('start_date')
+            ->get();
 
         $statuses = QueryStatus::all();
 
@@ -211,7 +214,6 @@ class AdminDashboardController extends Controller
                     $query->whereBetween('created_at', [$salesDateForm,$salesDateTo]);
                 }
             ])->withCount('queries')
-                ->orderByDesc('queries_count')
                 ->get();
         } else {
             $currentMonth = now()->format('m');
@@ -231,7 +233,6 @@ class AdminDashboardController extends Controller
                         ->whereYear('created_at', $currentYear);
                 }
             ])->withCount('queries')
-                ->orderByDesc('queries_count')
                 ->get();
         }
 

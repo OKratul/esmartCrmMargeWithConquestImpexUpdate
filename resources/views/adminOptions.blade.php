@@ -1,145 +1,154 @@
+
+
 @include('partials.layoutHead')
 
-<div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
+<div id="wrapper">
 
-        @include('partials.sidebar')
+    @include('partials.navbar')
+    @include('partials.sidebar')
 
-        <div class="layout-page">
-            @include('partials.navbar')
-            <div class="content-wrapper">
-                <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Settings /</span> Option</h4>
 
-                    <div class="row">
-                        <div class="col-md-12 ">
-                            <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="{{route('admin-settings')}}"><i class="bx bx-user me-1"></i> Account</a>
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title mb-4">Default Tabs</h4>
+
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a href="#home" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+                                        Profile
+                                    </a>
                                 </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="{{route('view-admin-options')}}"><i class="bx bx-bell me-1"></i>Options</a>
+                                <li class="nav-item">
+                                    <a href="#profile" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+                                       Pdf Options
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#messages" data-bs-toggle="tab" aria-expanded="false" class="nav-link ">
+                                        Status Options
+                                    </a>
                                 </li>
                             </ul>
-                            <div class="card mb-4">
-                                <h5 class="card-header">Query/Quotation/Invoice Select Options</h5>
-                                <!-- Account -->
-                               <div class="row">
-                                    <div class="col-xl-6">
-                                        <div class="card-body">
-                                            <h4>Add Select Options</h4>
-                                            {{--   Unit--}}
-                                            <form action="{{route('add-unit-options')}}" method="POST" >
-                                            {{csrf_field()}}
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">Add Unit</label>
-                                                   <div class="d-flex">
-                                                       <input required name="unit" class="form-control" type="text" id="firstName" autofocus="">
-                                                      <div>
-                                                          <button type="submit" class="btn btn-primary ml-1"><i class='bx bx-plus'></i></button>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                            </form>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home">
+                                    <div class="row">
+                                        <div class="col-4">
+                                           <div class="mt-3">
+                                             <form method="POST" action="">
+                                                 <div class="mb-2">
+                                                     <label for="simpleinput" class="form-label">User Name</label>
+                                                     <input type="text" id="simpleinput" name="customer_info_type" class="form-control">
+                                                 </div>
+                                                 <div class="mb-2">
+                                                     <label for="simpleinput" class="form-label">Email</label>
+                                                     <input type="text" id="simpleinput" name="customer_info_type" class="form-control">
+                                                 </div>
+                                             </form>
+                                               <a href="">
+                                                   Password Reset
+                                               </a>
+                                           </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mb-3">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h4 class="header-title">Upload Profile Image</h4>
+                                                                <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews"
+                                                                      data-upload-preview-template="#uploadPreviewTemplate">
+                                                                    <div class="fallback">
+                                                                        <input name="file" type="file" multiple />
+                                                                    </div>
 
-                                            <form action="{{route('add-querySource-options')}}" method="POST">
-                                                {{csrf_field()}}
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">Add Query Source</label>
-                                                   <div class="d-flex">
-                                                       <input name="query_source" required class="form-control" type="text" id="firstName" autofocus="">
-                                                      <div>
-                                                          <button type="submit" class="btn btn-primary ml-1"><i class='bx bx-plus'></i></button>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                            </form>
+                                                                    <div class="dz-message needsclick">
+                                                                        <i class="h1 text-muted dripicons-cloud-upload"></i>
+                                                                        <h3>Drop files here or click to upload.</h3>
+                                                                        <span class="text-muted font-13">(This is just a demo dropzone. Selected files are
+                                                    <strong>not</strong> actually uploaded.)</span>
+                                                                    </div>
+                                                                </form>
 
-                                            <form action="{{route('add-queryStatus-options')}}" method="POST">
-                                                {{csrf_field()}}
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">Add Query Status</label>
-                                                   <div class="d-flex">
-                                                       <input name="query_status" required class="form-control" type="text" id="firstName" autofocus="">
-                                                      <div>
-                                                          <button type="submit" class="btn btn-primary ml-1"><i class='bx bx-plus'></i></button>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                            </form>
-                                            <form action="{{route('add-deliveryTerm-options')}}" method="POST">
-                                                {{csrf_field()}}
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">Add Delivery Term</label>
-                                                   <div class="d-flex">
-                                                       <input name="delivery_term" required class="form-control" type="text" id="firstName" autofocus="">
-                                                      <div>
-                                                          <button type="submit" class="btn btn-primary ml-1"><i class='bx bx-plus'></i></button>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                            </form>
+                                                                <!-- Preview -->
+                                                                <div class="dropzone-previews mt-3" id="file-previews"></div>
 
-                                            <form action="{{route('add-paymentType-options')}}" method="POST">
-                                                {{csrf_field()}}
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">Add Payment Type</label>
-                                                   <div class="d-flex">
-                                                       <input name="payment_type" required class="form-control" type="text" id="firstName" autofocus="">
-                                                      <div>
-                                                          <button type="submit" class="btn btn-primary ml-1"><i class='bx bx-plus'></i></button>
-                                                      </div>
-                                                   </div>
+                                                            </div> <!-- end card-body-->
+                                                        </div> <!-- end card-->
+                                                    </div><!-- end col -->
                                                 </div>
-                                            </form>
+                                                <!-- end row -->
 
-                                            <form action="{{route('warranty')}}" method="POST">
-                                                {{csrf_field()}}
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">Warranty</label>
-                                                   <div class="d-flex">
-                                                       <input name="warranty" required class="form-control" type="text" id="firstName" autofocus="">
-                                                      <div>
-                                                          <button type="submit" class="btn btn-primary ml-1"><i class='bx bx-plus'></i></button>
-                                                      </div>
-                                                   </div>
+                                                <!-- file preview template -->
+                                                <div class="d-none" id="uploadPreviewTemplate">
+                                                    <div class="card mt-1 mb-0 shadow-none border">
+                                                        <div class="p-2">
+                                                            <div class="row align-items-center">
+                                                                <div class="col-auto">
+                                                                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light" alt="">
+                                                                </div>
+                                                                <div class="col ps-0">
+                                                                    <a href="javascript:void(0);" class="text-muted fw-bold" data-dz-name></a>
+                                                                    <p class="mb-0" data-dz-size></p>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <!-- Button -->
+                                                                    <a href="" class="btn btn-link btn-lg text-muted" data-dz-remove>
+                                                                        <i class="dripicons-cross"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </form>
 
+                                                <div class="row">
+                                                    <div class="col-12">
+
+                                                    </div><!-- end col -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                   <div class="col-xl-6">
-                                       <div class="card-body">
-                                            <h4>Add Expense Options</h4>
-                                           <form action="{{route('add-expense')}}" method="POST" >
-                                               {{csrf_field()}}
-                                               <div class="mb-3 col-md-6">
-                                                   <label for="firstName" class="form-label">Add Expense Name</label>
-                                                   <div class="d-flex">
-                                                       <input required name="expense" class="form-control" type="text" id="firstName" autofocus="">
-                                                       <div>
-                                                           <button type="submit" class="btn btn-primary ml-1"><i class='bx bx-plus'></i></button>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                           </form>
-                                       </div>
-                                   </div>
-                               </div>
-                                <hr class="my-0">
-
-                                <!-- /Account -->
+                                </div>
+                                <div class="tab-pane show" id="profile">
+                                    <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                                    <p class="mb-0">Vakal text here dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                                </div>
+                                <div class="tab-pane " id="messages">
+                                    <p>Vakal text here dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                                    <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                                </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
 
     </div>
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
 
 </div>
 
+
+@include('partials.rightbar')
+
+
 @include('partials.layoutEnd')
+
+

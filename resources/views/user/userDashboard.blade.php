@@ -403,11 +403,11 @@
                                                         </td>
                                                         <td>
                                                             @if($task->status == 'done')
-                                                                <a href="" class="btn btn-warning rounded-pill waves-effect waves-light">
+                                                                <a href="{{route('task-undone',[$task->id])}}" class="btn btn-warning rounded-pill waves-effect waves-light">
                                                                     <i style="font-size: 18px" class="fe-corner-up-left"></i>
                                                                 </a>
                                                             @else
-                                                                <a href="" class="btn btn-success rounded-pill waves-effect waves-light">
+                                                                <a href="{{route('task-done',[$task->id])}}" class="btn btn-success rounded-pill waves-effect waves-light">
                                                                     <i style="font-size: 18px" class="fe-check"></i>
                                                                 </a>
                                                             @endif

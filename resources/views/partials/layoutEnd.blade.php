@@ -46,6 +46,13 @@
 {{--Calendar Js --}}
     <script src="{{asset('Asset/assets/js/pages/calendar.init.js')}}"></script>
 
+<script src="{{asset('Asset/assets/libs/node-waves/waves.min.js')}}"></script>
+<script src="{{asset('Asset/assets/libs/waypoints/lib/jquery.waypoints.min.js')}}"></script>
+
+<script src="{{asset('Asset/assets/libs/dropzone/min/dropzone.min.js')}}"></script>
+{{--<script src="{{asset('Asset/assets/libs/dropify/js/dropify.min.js')}}"></script>--}}
+<script src="{{asset('Asset/assets/js/pages/form-fileuploads.init.js')}}"></script>
+
 {{--=========Custom Js --}}
     <script src="{{asset('Asset/js/queryTable.js')}}"></script>
     <script src="{{asset('Asset/js/customeCalendar.js')}}"></script>

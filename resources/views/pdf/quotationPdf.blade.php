@@ -120,7 +120,7 @@
                 <td style="border: 1px solid #304051; padding: 8px;">
                         <div>
                             <?php echo $product['description']; ?> <br>
-                          
+
                         </div>
                         @if(!empty($product['product_image']))
                             <div>
@@ -268,7 +268,11 @@
             </p>
         @endif
         <div style="line-height: 8px;">
-            <img src="{{public_path('images/pdf/seal_logo2-1.png')}}" style="width: 90px">
+            @if($quotation->logo == 'Conquest Impex')
+                <img src="{{public_path('images/pdf/Impex Seal.png')}}" style="width: 90px">
+            @else
+                <img src="{{public_path('images/pdf/seal_logo2-1.png')}}" style="width: 90px">
+            @endif
             <p>Best Regards</p>
             <p>{{$quotation->users['name']}}</p>
             <p>Business Development Executive</p>

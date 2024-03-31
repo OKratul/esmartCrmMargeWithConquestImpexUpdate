@@ -78,6 +78,14 @@
                         <span> Dashboard </span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('view-admin-options')}}">
+                        <i class="mdi mdi-cog-outline"></i>
+                        <span>
+                            Settings
+                        </span>
+                    </a>
+                </li>
 
                 <li class="menu-title mt-2">Apps</li>
 

@@ -26,6 +26,7 @@ use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceExportExcelController;
 use App\Http\Controllers\MailboxController;
 use App\Http\Controllers\MakeUserFromOldDatabase;
 use App\Http\Controllers\NotificationController;
@@ -421,6 +422,12 @@ Route::group(['middleware'=>'adminAuth'],function (){
 
     });
 
+
+//    Export Excel Route
+    Route::get('export/invoice-data',[InvoiceExportExcelController::class,'invoiceExport'])->name('export-invoice-data');
+    Route::get('export/queries-data',[InvoiceExportExcelController::class,'queryExport'])->name('export-all-queries');
+    Route::get('export/quotation-data',[InvoiceExportExcelController::class,'quotationExport'])->name('export-all-quotations');
+    Route::get('export/company-data',[InvoiceExportExcelController::class,'companyData'])->name('company-data');
 
 });
 

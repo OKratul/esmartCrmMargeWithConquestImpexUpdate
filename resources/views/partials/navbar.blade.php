@@ -50,11 +50,11 @@
                 <!-- item-->
                 <div class="dropdown-item noti-title">
                     <h5 class="m-0">
-                                        <span class="float-end">
-                                            <a href="" class="text-dark">
-                                                <small>Clear All</small>
-                                            </a>
-                                        </span>Notification
+                        <span class="float-end">
+                           <a href="" class="text-dark">
+                              <small>Clear All</small>
+                           </a>
+                        </span>Notification
                     </h5>
                 </div>
 
@@ -224,7 +224,17 @@
 
                 </div>
             </div>
+        </li>
+        <li>
 
+{{--            Task Assign Modal      --}}
+            <div class="mt-2" style="margin-left: 50px">
+
+                <button type="button" class="btn btn-info rounded-pill" data-bs-toggle="modal" data-bs-target="#task-assign-modal">
+                    Assign Task <i class="fe-user-plus"></i>
+                </button>
+
+            </div>
         </li>
     </ul>
 
@@ -431,3 +441,55 @@
         });
     });
 </script>
+<div class="modal fade" id="task-assign-modal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Assign Task To Your User</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('assign-task')}}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="mb-2 col-6">
+                            <label for="simpleinput" class="form-label">Select User*</label>
+                            <select name="user_id" class="form-select">
+                                <option>Select Status</option>
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-2 col-6">
+                            <label for="simpleinput" class="form-label">Start Date*</label>
+                            <input class="form-control" id="example-date" type="date" name="start_date">
+                        </div>
+                        <div class="mb-2 col-6">
+                            <label for="simpleinput" class="form-label">End Date</label>
+                            <input name="end_date" type="date" id="simpleinput" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-2 col-12">
+                            <label for="simpleinput" class="form-label">Job Title*</label>
+                            <input required name="title" type="text" id="simpleinput" class="form-control">
+                        </div>
+                        <div class="mb-2 col-12">
+                            <label for="simpleinput" class="form-label">Job Description</label>
+                            <textarea name="description" type="text" id="simpleinput" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-2">
+                        <button type="submit" class="btn btn-primary">
+                            Submit <i class="fe-user-plus"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

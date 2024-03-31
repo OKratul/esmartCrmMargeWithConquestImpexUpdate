@@ -197,6 +197,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+//        Excel Import/Export
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
+
 //        Device Info
         Jenssegers\Agent\AgentServiceProvider::class,
 
@@ -218,9 +222,15 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
 //        'PDF' => Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::class
           'Client'=>Webklex\IMAP\Facades\Client::class,
+//        Excel Import/Export
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
         // 'ExampleClass' => App\Example\ExampleClass::class,
 
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+
+
+
     ])->toArray(),
 
 ];

@@ -209,8 +209,12 @@
         @endif
 
         <div style="line-height: 8px;">
-            <img src="{{public_path('images/pdf/seal_logo2-1.png')}}" style="width: 90px">
-            <p>Best Regards</p>
+            @if($invoice->logo == 'Esmart')
+                <img src="{{public_path('images/pdf/seal_logo2-1.png')}}" style="width: 90px">
+            @else
+                <img src="{{public_path('images/pdf/Impex Seal.png')}}" style="width: 90px">
+            @endif
+                <p>Best Regards</p>
             @if(!empty($invoice->users))
                 <p>{{$invoice->users['name']}}</p>
             @else

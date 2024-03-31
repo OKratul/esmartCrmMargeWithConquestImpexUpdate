@@ -58,6 +58,7 @@ class QuotationController extends Controller
                 // Handle default case if no filters are provided
                 $query->orderByDesc('updated_at');
             })
+            ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
 
