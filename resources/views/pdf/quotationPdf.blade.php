@@ -275,7 +275,11 @@
             @endif
             <p>Best Regards</p>
             <p>{{$quotation->users['name']}}</p>
-            <p>Business Development Executive</p>
+            @if($quotation->users['name'] == 'MD Rayhan Gofur' || $quotation->users['name'] == 'Ahmed_Fahim')
+                 <p>Senior Business Development Executive</p>
+            @else
+                  <p>Business Development Executive</p>
+            @endif
         </div>
         <div style="line-height: 8px">
             @if($quotation->logo == 'Esmart')

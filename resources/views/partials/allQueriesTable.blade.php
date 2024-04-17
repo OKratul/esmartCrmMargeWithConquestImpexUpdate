@@ -2,11 +2,17 @@
     <div class="card-header">
 
 {{--   ========= Filter code ===========     --}}
-        <form method="GET" action="{{request()->routeIs('all-query')? route('all-query') : route('admin-all-query')}}">
+        <form method="GET" action="{{ request()->routeIs('all-query') ? route('all-query') : (request()->routeIs('user-query-export-view') ? route('user-query-export-view') : '#') }}"
+        >
             {{csrf_field()}}
             <div class="row">
                 <div class="col-4">
-                    <h3>All Queries</h3>
+                    <div>
+                        <h3>All Queries</h3>
+                        <a href="{{route('user-query-export')}}">
+                            user-query-export
+                        </a>
+                    </div>
                 </div>
                 <div class="col-8">
                         <div class="d-flex gap-2 justify-content-end">

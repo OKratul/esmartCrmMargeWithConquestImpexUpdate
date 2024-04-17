@@ -38,6 +38,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\QueryStatusChange;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\ReportExport;
 use App\Http\Controllers\ReqForTransferontroller;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SmsSentController;
@@ -692,6 +693,10 @@ Route::group(['middleware'=> 'userAuth'],function (){
 
     Route::post('user/invoice/{invoice_id}/sent-sms',[SmsSentController::class,'sentSms'])->name('user-sent-sms');
 
+    // User  Export Excel Route
+
+    Route::get('user/export/queries/view',[ReportExport::class,'viewQueryExport'])->name('user-query-export-view');
+    Route::get('user/export/queries/',[ReportExport::class,'exportQuery'])->name('user-query-export');
 
 
 //    ====log out ========

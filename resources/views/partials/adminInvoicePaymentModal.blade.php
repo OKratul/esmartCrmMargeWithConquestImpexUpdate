@@ -22,6 +22,7 @@
                                 <option value="SSL Commerz">SSL Commerz</option>
                                 <option value="Cash">Cash</option>
                                 <option value="Cheque">Cheque</option>
+                                <option value="Redex">Redex</option>
                             </select>
                         </div>
                         <div class="mb-3 col-6">

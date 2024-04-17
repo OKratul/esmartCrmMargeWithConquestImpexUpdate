@@ -147,6 +147,7 @@
                                                                     <option value="Bank Cheque">Bank Cheque</option>
                                                                     <option value="Cash">Cash</option>
                                                                     <option value="Bkash">Bkash</option>
+                                                                    <option value="Redex">Redex</option>
                                                                 </select>
                                                             </div>
                                                             @php
