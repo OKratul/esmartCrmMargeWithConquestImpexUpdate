@@ -48,6 +48,7 @@ use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserStaffAddController;
+use App\Http\Controllers\WoocommerceController;
 use App\Models\conquest\ConquestProduct;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PromotionMialController;
@@ -95,13 +96,9 @@ Route::group(['middleware'=>'adminAuth'],function (){
 
     Route::get('admin/all-products',[AddWebsiteDataController::class,'getdata'])->name('products');
 
-//    Route::get('product/add-products',[AddProductController::class,'productForm'])->name('add-products');
-//    Route::post('product/add-products',[AddProductController::class,'addProduct'])->name('product-added');
+//Wordpress Route
 
-//    Route::get('product/category',[ProductCategoryController::class,'category'])->name('product-category');
-//    Route::post('product/category',[ProductCategoryController::class,'category'])->name('search-category');
-
-//    Route::post('product/category/add',[ProductCategoryController::class,'addCategory'])->name('add-category');
+    Route::get('admin/esmart/products',[WoocommerceController::class,'products'])->name('woocommerce-products');
 
     Route::get('admin/users/attendance',[AttendanceController::class,'attendance'])->name('attendance');
 

@@ -148,6 +148,15 @@
                         </ul>
                     </div>
                 </li>
+                <li class="menu-title mt-2">Woocommerce</li>
+
+                <li>
+                    <a href="{{route('woocommerce-products')}}">
+                        <i class="mdi mdi-account-group"></i>
+                        <span> Products </span>
+                    </a>
+                </li>
+
 
                 <li class="menu-title mt-2">Custom</li>
 

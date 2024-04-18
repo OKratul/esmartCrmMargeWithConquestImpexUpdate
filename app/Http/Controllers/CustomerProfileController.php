@@ -81,7 +81,25 @@ class CustomerProfileController extends Controller
         $queryStatus = QueryStatus::get('query_status');
 
         if (\request()->routeIs('all-customers')){
-            return view('customers',compact('customers'));
+            return view('customers',compact('customers','notifications',
+                'querySources',
+                'unites',
+                'warranties',
+                'paymentTypes',
+                'deliveryTerms',
+                'statuses',
+                'pendingQuery',
+                'processingQuery',
+                'quotationSent',
+                'orderConfirmed',
+                'deliveryOnGoing',
+                'delivered',
+                'closed',
+                'statuses',
+                'users',
+                'queryStatus',
+                'accounts',
+                'pageTitle'));
         }else{
             return view('user.allCustomer',
                 compact('customers','notifications',

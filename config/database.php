@@ -62,7 +62,19 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-
+        'wordpress' => [
+            'driver' => 'mysql',
+            'host' => env('WORDPRESS_DB_HOST', '127.0.0.1'),
+            'port' => env('WORDPRESS_DB_PORT', '3306'),
+            'database' => env('WORDPRESS_DB_DATABASE', 'esmart_test'),
+            'username' => env('WORDPRESS_DB_USERNAME', 'root'),
+            'password' => env('WORDPRESS_DB_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => 'wpzg_', // Change 'wp_' to match your WordPress table prefix if it's different
+            'strict' => true,
+            'engine' => null,
+        ],
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

@@ -1,5 +1,7 @@
 {{-- navbar --}}
-
+@php
+    $users = \App\Models\User::all();
+@endphp
 <!-- Topbar Start -->
 <div class="navbar-custom">
     <ul class="list-unstyled topnav-menu float-end mb-0">
@@ -12,6 +14,8 @@
                       action="{{route('admin-all-quotation')}}"
                   @elseif(request()->routeIs('admin-all-invoice'))
                       action="{{route('admin-all-invoice')}}"
+                  @elseif(request()->routeIs('woocommerce-products'))
+                      action="{{route('woocommerce-products')}}"
                   @endif
                   method="GET">
                 @csrf
