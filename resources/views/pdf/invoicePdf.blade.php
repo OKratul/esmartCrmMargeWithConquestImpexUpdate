@@ -214,13 +214,18 @@
             @else
                 <img src="{{public_path('images/pdf/Impex Seal.png')}}" style="width: 90px">
             @endif
-                <p>Best Regards</p>
+            <p>Best Regards</p>
             @if(!empty($invoice->users))
                 <p>{{$invoice->users['name']}}</p>
             @else
                 <p>{{$invoice->admins['username']}}</p>
             @endif
-            <p>Business Development Executive</p>
+
+            @if($invoice->users['name'] == 'MD Rayhan Gofur' || $invoice->users['name'] == 'Ahmed_Fahim')
+                <p>Senior Business Development Executive</p>
+            @else
+                <p>Business Development Executive</p>
+            @endif
         </div>
         <div style="line-height: 8px;width: 50%; ">
 {{--            <img src="<?php echo public_path('images/pdf/pdf_logo2.png'); ?>" style="width: 180px" alt="eSmart Bangladesh">--}}

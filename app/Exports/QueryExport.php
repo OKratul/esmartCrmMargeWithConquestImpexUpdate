@@ -9,14 +9,23 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class QueryExport implements FromView
 {
+    public $queries;
+
+    public function __construct($queries)
+    {
+        $this->queries = $queries;
+    }
+    public function collection()
+    {
+        return $this->queries;
+    }
+
     /**
      *  @return \Illuminate\Contracts\View\View
     */
     public function view():View
     {
-        $queries = Query::with('customers')->orderByDesc('created_at')->get();
-
+        $queries = $this->queries;
         return view('excel.queryExport',compact('queries'));
-
     }
 }

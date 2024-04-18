@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\QueryInserted;
+use App\Exports\QueryExport;
 use App\Listeners\SendQueryNotification;
 use App\Models\CustomerModel;
 use App\Models\DeliveryTerm;
@@ -30,8 +31,6 @@ class QueryController extends Controller
         $dateTo = \request('date_to');
         $status = \request('status');
         $user = \request('user');
-
-
 
         $queries = Query::with(['customers', 'notes', 'users'])
             ->when(!empty($searchTerm), function ($query) use ($searchTerm) {

@@ -112,6 +112,26 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <a href="#report" data-bs-toggle="collapse">
+                        <i class="mdi mdi-clipboard-outline"></i>
+                        <span> Reports </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="report">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{route('user-query-export-view')}}">Queries</a>
+                            </li>
+                            <li>
+                                <a href="{{route('user-view-all-quotation')}}">Quotations</a>
+                            </li>
+                            <li>
+                                <a href="{{route('user-all-invoice')}}">Invoices</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 <li class="menu-title mt-2">Custom</li>
 
