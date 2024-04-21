@@ -33,6 +33,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OldDataController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PDFsetupController;
 use App\Http\Controllers\PhoneNumbersController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\QueryController;
@@ -340,6 +341,8 @@ Route::group(['middleware'=>'adminAuth'],function (){
     Route::get('admin/all-payments/{id}/money-rec',[PaymentController::class,'moneyRec'])->name('admin-single-money_rec');
 
     Route::post('admin/invoice/{invoice_id}/sent-sms',[SmsSentController::class,'sentSms'])->name('sent-sms');
+
+    Route::post('admin/pfd-setup',[PDFsetupController::class,'pdfSetup'])->name('pdf-setup');
 
     //    =====Logout====
     Route::get('admin/logout',[AdminLoginController::class,'logout'])->name('admin-logout');
