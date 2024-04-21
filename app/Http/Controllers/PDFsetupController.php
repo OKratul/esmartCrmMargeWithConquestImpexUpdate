@@ -30,14 +30,14 @@ class PDFsetupController extends Controller
         if (\request()->hasFile('logo')) {
             $logo = \request()->file('logo');
             $extension = $logo->getClientOriginalExtension();
-            $logoFileName = \request('name') . '_logo.' . $extension;
+            $logoFileName = asset('images/pdf/'.\request('name') . '_logo.' . $extension);
             $logo->move(public_path('images/pdf'), $logoFileName);
         }
 
         if (\request()->hasFile('seal')) {
             $seal = \request()->file('seal');
             $extension = $seal->getClientOriginalExtension();
-            $sealFileName = \request('name') . '_seal.' . $extension;
+            $sealFileName = asset('images/pdf/'. \request('name') . '_seal.' . $extension);
             $seal->move(public_path('images/pdf'), $sealFileName);
         }
 
@@ -53,6 +53,8 @@ class PDFsetupController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Pdf Setup updated');
+
+//    dd($logoFileName);
     }
 
 

@@ -15,11 +15,12 @@
                 <h3 style="font-size: 24px">Price Quotation</h3>
             </td>
             <td style="width: 50%; text-align: right;">
-                @if($quotation->logo == 'Esmart')
-                    <img src="<?php echo public_path('images/pdf/pdf_logo2.png'); ?>" style="width: 180px">
-                @else
-                    <img src="<?php echo public_path('images/pdf/Asset 1.png'); ?>" style="width: 180px">
-                @endif
+{{--                <img src="{{ asset('images/pdf/' . $pdfSetup['logo']) }}" style="width: 180px">--}}
+{{--                @if($quotation->logo == 'Esmart')--}}
+{{--                    <img src="<?php echo public_path('images/pdf/pdf_logo2.png'); ?>">--}}
+{{--                @else--}}
+{{--                    <img src="<?php echo public_path('images/pdf/Asset 1.png'); ?>" style="width: 180px">--}}
+{{--                @endif--}}
             </td>
         </tr>
         <!-- Other header content -->

@@ -176,6 +176,45 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-6 p-3">
+                                            <div class="">
+                                                <h3>
+                                                    All Pdf Sets
+                                                </h3>
+                                                <div class="d-flex gap-3">
+                                                    @if(empty($pdfSets))
+                                                        <h4>
+                                                            No Pdf Sets Found
+                                                        </h4>
+                                                    @endif
+                                                    @foreach($pdfSets as $pdfSet)
+                                                        <div class="card" style="width: 300px;border: 1px solid #cccccc">
+                                                            <img class="card-img-top img-fluid mt-2" src="{{$pdfSet->logo}}" alt="Card image cap">
+                                                            <div class="card-body">
+                                                                <h4 class="card-title">{{$pdfSet->name}}</h4>
+                                                                <p class="card-text">
+                                                                    {{$pdfSet->address}}
+                                                                </p>
+                                                            </div>
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item">Hotline:- {{$pdfSet->hotline}}</li>
+                                                                <li class="list-group-item">Email:- {{$pdfSet->email}}</li>
+                                                                <li class="list-group-item">Website:- {{$pdfSet->website}}</li>
+                                                                <li class="list-group-item">Designation:- {{$pdfSet->designation}}</li>
+                                                            </ul>
+                                                            <div class="card-body d-flex justify-content-center">
+                                                                <img style="width: 150px" class="card-img-top img-fluid" src="{{$pdfSet->seal}}" alt="Card image cap">
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <a href="#" class="card-link">Card link</a>
+                                                                <a href="#" class="card-link">Another link</a>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="tab-pane " id="options">
