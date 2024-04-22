@@ -15,6 +15,7 @@ class QueryExport implements FromView
     {
         $this->queries = $queries;
     }
+
     public function collection()
     {
         return $this->queries;

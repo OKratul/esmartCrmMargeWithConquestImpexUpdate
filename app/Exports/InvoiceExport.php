@@ -9,12 +9,24 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class InvoiceExport implements FromView
 {
+
+    public $invoices;
+
+    public function __construct($invoices)
+    {
+        $this->invoices= $invoices;
+    }
+
+    public function collection()
+    {
+        return $this->invoices;
+    }
     /**
     *  @return \Illuminate\Contracts\View\View
     */
     public function view():View
     {
-        $invoices = Invoice::with('customers')->orderByDesc('created_at')->get();
+        $invoices = $this->invoices;
 
         return view('excel.invoiceExport',compact('invoices'));
     }

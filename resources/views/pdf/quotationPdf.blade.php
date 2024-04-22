@@ -92,57 +92,57 @@
         $products = json_decode($quotation->products, true);
 
         foreach ($products as $key => $product) {
-            $unitPrice = $product['unit_price'];
-            $priceWithVat = 0; // Initialize $priceWithVat
+        $unitPrice = $product['unit_price'];
+        $priceWithVat = 0; // Initialize $priceWithVat
 
-            if (!empty($quotation->vat_tax)) {
-                if ($quotation->vat_tax == 10.5) {
-                    $priceWithAit = $unitPrice + floatval($unitPrice) * 3 / 100;
-                    $priceWithVat = $priceWithAit + $priceWithAit * 7.5 / 100;
-                    $subTotal = floatval($priceWithVat) * floatval($product['quantity']);
-                } else {
-                    $priceWithVat = $unitPrice + floatval($unitPrice) * floatval($quotation->vat_tax) / 100;
-                    $subTotal = floatval($priceWithVat) * floatval($product['quantity']);
-                }
+        if (!empty($quotation->vat_tax)) {
+            if ($quotation->vat_tax == 10.5) {
+                $priceWithAit = $unitPrice + floatval($unitPrice) * 3 / 100;
+                $priceWithVat = $priceWithAit + $priceWithAit * 7.5 / 100;
+                $subTotal = floatval($priceWithVat) * floatval($product['quantity']);
             } else {
-                $subTotal = $unitPrice * $product['quantity'];
-                $priceWithVat = $unitPrice;
+                $priceWithVat = $unitPrice + floatval($unitPrice) * floatval($quotation->vat_tax) / 100;
+                $subTotal = floatval($priceWithVat) * floatval($product['quantity']);
             }
+        } else {
+            $subTotal = $unitPrice * $product['quantity'];
+            $priceWithVat = $unitPrice;
+        }
 
-            $totalPrice += $subTotal; // Update the total price
+        $totalPrice += $subTotal; // Update the total price
 
-            ?>
-            <tr>
-                <!-- Table rows for product details here -->
-                <td style="border: 1px solid #304051; padding: 8px;"><?php echo $key + 1; ?></td>
-                <td style="border: 1px solid #304051; padding: 8px;"><?php echo $product['product_name']; ?></td>
-                <td style="border: 1px solid #304051; padding: 8px;"><?php echo $product['product_code']; ?></td>
-                <td style="border: 1px solid #304051; padding: 8px;">
-                        <div>
-                            <?php echo $product['description']; ?> <br>
+        ?>
+        <tr>
+            <!-- Table rows for product details here -->
+            <td style="border: 1px solid #304051; padding: 8px;"><?php echo $key + 1; ?></td>
+            <td style="border: 1px solid #304051; padding: 8px;"><?php echo $product['product_name']; ?></td>
+            <td style="border: 1px solid #304051; padding: 8px;"><?php echo $product['product_code']; ?></td>
+            <td style="border: 1px solid #304051; padding: 8px;">
+                <div>
+                    <?php echo $product['description']; ?> <br>
 
-                        </div>
-                        @if(!empty($product['product_image']))
-                            <div>
-                                  <hr>
-                               <img src="<?php echo public_path('images/quotationProduct/').$product['product_image']; ?>" style="width: 180px">
-                            </div><br>
-                        @endif
-                </td>
-                <td style="border: 1px solid #304051; padding: 8px;"><?php echo $product['quantity'], ' ' . $product['unit']; ?></td>
-                <td style="border: 1px solid #304051; padding: 8px;"><?php echo number_format($priceWithVat,2,'.',''); ?></td>
-                <td style="border: 1px solid #304051; padding: 8px;"><?php echo number_format($subTotal,2,'.',''); ?></td>
-            </tr>
+                </div>
+                @if(!empty($product['product_image']))
+                    <div>
+                        <hr>
+                        <img src="<?php echo public_path('images/quotationProduct/').$product['product_image']; ?>" style="width: 180px">
+                    </div><br>
+                @endif
+            </td>
+            <td style="border: 1px solid #304051; padding: 8px;"><?php echo $product['quantity'], ' ' . $product['unit']; ?></td>
+            <td style="border: 1px solid #304051; padding: 8px;"><?php echo number_format($priceWithVat,2,'.',''); ?></td>
+            <td style="border: 1px solid #304051; padding: 8px;"><?php echo number_format($subTotal,2,'.',''); ?></td>
+        </tr>
         <?php } ?>
         </tbody>
         <tfoot>
         <!-- Footer rows and calculations here -->
-         @if(!empty($quotation->delivery_check))
+        @if(!empty($quotation->delivery_check))
             <tr>
                 <td colspan="6" style="text-align: right; border: 1px solid #304051; padding: 8px;">
                     <span style="font-size: 14px">
                         @if(!empty($quotation->delivery_check))
-                              <strong>Delivery Charge Applicable</strong>
+                            <strong>Delivery Charge Applicable</strong>
                         @elseif(!empty($quotation->delivery_charge))
                             <strong>Delivery Charge Include</strong><br>
                         @else
@@ -152,10 +152,10 @@
                 </td>
                 <td style="border: 1px solid #304051; padding: 8px;">
                     @if(!empty($quotation->delivery_check) && !empty($quotation->delivery_charge))
-                          <?php
-                            $deliveryCharge = floatval(preg_replace('/[^0-9]/', '', $quotation->delivery_charge));
-                            echo number_format($deliveryCharge, 2, '.', '') . ' ' . preg_replace('/[0-9]/', '', $quotation->delivery_charge);
-                            ?>
+                        <?php
+                        $deliveryCharge = floatval(preg_replace('/[^0-9]/', '', $quotation->delivery_charge));
+                        echo number_format($deliveryCharge, 2, '.', '') . ' ' . preg_replace('/[0-9]/', '', $quotation->delivery_charge);
+                        ?>
                     @endif
 
 
@@ -216,14 +216,15 @@
     <p>
         <strong>Total Price (In Words):</strong>
         <?php
-        $totalPrice= number_format($totalPrice,2,'.','');
-        $numberFormatter = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+        $totalPrice = number_format($totalPrice, 2, '.', '');
+        $numberFormatter = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
         $totalPriceInWords = ucwords($numberFormatter->format($totalPrice));
         echo $totalPriceInWords . ' Tk. Only';
         ?>
     </p>
 
-   <div class="quotation-foot">
+
+    <div class="quotation-foot">
         <p><strong>Terms & Conditions</strong></p>
         <p>
             <strong>Payment Method:</strong> {{$quotation->payment_type}} , @if($quotation->payment_type == '50% Advance Payment by Bank' )Rest Payment By Cash @endif<br>
@@ -248,7 +249,7 @@
             <strong>Vat & Ait Exclude</strong>
         @endif
 
-          <p>
+        <p>
             <strong>Warranty:</strong> {{$quotation->warranty}}
         </p>
 
@@ -257,9 +258,9 @@
         </p>
 
 
-            <p>
-                <strong>Delivery Time:</strong>Within {{$quotation->delivery_date }} working day after work order
-            </p>
+        <p>
+            <strong>Delivery Time:</strong>Within {{$quotation->delivery_date }} working day after work order
+        </p>
 
 
         @if(!empty($quotation->other_condition))
@@ -268,18 +269,11 @@
             </p>
         @endif
         <div style="line-height: 8px;">
-            @if($quotation->logo == 'Conquest Impex')
-                <img src="{{public_path('images/pdf/Impex Seal.png')}}" style="width: 90px">
-            @else
-                <img src="{{public_path('images/pdf/seal_logo2-1.png')}}" style="width: 90px">
-            @endif
+            <img src="{{public_path('images/pdf/seal_logo2-1.png')}}" style="width: 90px">
             <p>Best Regards</p>
             <p>{{$quotation->users['name']}}</p>
-            @if($quotation->users['name'] == 'MD Rayhan Gofur' || $quotation->users['name'] == 'Ahmed_Fahim')
-                 <p>Senior Business Development Executive</p>
-            @else
-                  <p>Business Development Executive</p>
-            @endif
+            <p>Senior Business Development Executive</p>
+
         </div>
         <div style="line-height: 8px">
             @if($quotation->logo == 'Esmart')
@@ -294,7 +288,7 @@
 
         </div>
 
-       <div>
+        <div>
 
 
         </div>

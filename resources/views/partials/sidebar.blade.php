@@ -158,27 +158,6 @@
                 </li>
 
 
-                <li>
-                    <a href="#reports" data-bs-toggle="collapse">
-                        <i class="mdi mdi-clipboard-outline"></i>
-                        <span> Reports </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="reports">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="{{route('admin-all-query')}}">Queries</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin-all-quotation')}}">Quotations</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin-all-invoice')}}">Invoices</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
 
                 <li class="menu-title mt-2">Custom</li>
 

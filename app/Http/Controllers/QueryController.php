@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
 
 class QueryController extends Controller
 {
@@ -31,6 +32,12 @@ class QueryController extends Controller
         $dateTo = \request('date_to');
         $status = \request('status');
         $user = \request('user');
+
+        Session::put('search', $searchTerm);
+        Session::put('date_from', $dateFrom);
+        Session::put('date_to', $dateTo);
+        Session::put('status', $status);
+        Session::put('user', $user);
 
         $queries = Query::with(['customers', 'notes', 'users'])
             ->when(!empty($searchTerm), function ($query) use ($searchTerm) {

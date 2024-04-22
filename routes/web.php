@@ -344,9 +344,27 @@ Route::group(['middleware'=>'adminAuth'],function (){
     //    =====Logout====
     Route::get('admin/logout',[AdminLoginController::class,'logout'])->name('admin-logout');
 
+
+
+//    Admin Export Report
+    Route::get('admin/export/queries/',[ReportExport::class,'exportQuery'])->name('admin-query-export');
+    Route::get('admin/export/quotation/',[ReportExport::class,'quotationExport'])->name('admin-quotation-export');
+    Route::get('admin/export/invoice/',[ReportExport::class,'invoiceExport'])->name('admin-invoice-export');
+
+
+
+
+
+
+
+//  =========================================== Conquest Admin Route ============================================
+
+
+
     Route::prefix('conquest-impex')->group(function (){
 
         Route::get('/dashboard',[ConquestDashboardController::class,'index'])->name('conquest-dashboard');
+
 //        ==== Conquest Customers Route ====
         Route::get('/customers',[ConquestCustomersController::class,'allCustomers'])->name('conquest-all-customer');
         Route::post('/customer/add',[ConquestCustomersController::class,'addCustomer'])->name('conquest-add-customer');
@@ -415,6 +433,11 @@ Route::group(['middleware'=>'adminAuth'],function (){
 //    Add Invoice From Old Data
 
         Route::get('/add-invoice-from-old-data',[ConquestInvoiceController::class,'addInvoiceFromOldData'])->name('conquest-add-old-invoice-data');
+
+
+//        Excel Report
+
+
 
 
 
@@ -692,7 +715,6 @@ Route::group(['middleware'=> 'userAuth'],function (){
 
     // User  Export Excel Route
 
-    Route::get('user/export/queries/view',[ReportExport::class,'viewQueryExport'])->name('user-query-export-view');
     Route::get('user/export/queries/',[ReportExport::class,'exportQuery'])->name('user-query-export');
 
 

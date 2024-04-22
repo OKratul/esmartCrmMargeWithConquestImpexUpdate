@@ -69,10 +69,18 @@
                         </div>
                         <div class="row">
                             <div class="col-4">
-                                <h3 style="font-size: 25px" class="badge badge-outline-secondary">
-                                   Invoices:
-                                </h3>
+                                <div class="d-flex align-items-center gap-2">
+                                    <h3 style="font-size: 25px" class="badge badge-outline-secondary">
+                                        Invoices:
+                                    </h3>
+                                    <a href="{{route('admin-invoice-export')}}" style="font-size: 18px">
+                                        <i class="fas fa-file-excel"></i>
+                                        Export Invoice Report
+                                    </a>
+                                </div>
+
                                     <hr>
+
                             </div>
                             <div class="col-8">
                                 <div class="d-flex gap-2 justify-content-end">

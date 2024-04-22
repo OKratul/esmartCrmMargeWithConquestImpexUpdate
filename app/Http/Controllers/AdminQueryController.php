@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Warranty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminQueryController extends Controller
 {
@@ -24,6 +25,12 @@ class AdminQueryController extends Controller
         $dateTo = \request('date_to');
         $status = \request('status');
         $user = \request('user');
+
+        Session::put('searchTerm', $searchTerm);
+        Session::put('dateFrom', $dateFrom);
+        Session::put('dateTo', $dateTo);
+        Session::put('status_admin', $status);
+        Session::put('user_admin', $user);
 
         $queries = Query::with(['customers', 'notes', 'users'])
             ->when(!empty($searchTerm), function ($query) use ($searchTerm) {

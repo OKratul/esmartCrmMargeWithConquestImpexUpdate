@@ -9,12 +9,27 @@ use Illuminate\View\View;
 
 class QuotationExport implements FromView
 {
+
+    public $quotaitons;
+
+    public function __construct($quotaitons)
+    {
+        $this->quotaitons= $quotaitons;
+    }
+
+    public function collection()
+    {
+        return $this->quotaitons;
+    }
+
     /**
      *  @return \Illuminate\Contracts\View\View
     */
+
     public function view():View
     {
-        $quotations = Quotation::with('customers')->orderByDesc('created_at')->get();
+
+        $quotations = $this->quotaitons;
 
         return view('excel.quotationExport',compact('quotations'));
     }

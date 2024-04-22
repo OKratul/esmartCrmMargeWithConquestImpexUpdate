@@ -11,60 +11,52 @@ use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminInvoiceController extends Controller
 {
     public function allInvoice(){
 
         $pageTitle = 'Admin All Invoice';
-        $search = \request('search');
-        $dateFrom = \request('date-form');
-        $dateTo = \request('date-to');
-        $user = \request('user');
-        $status = \request('status');
+        $search = request('search');
+        $dateFrom = request('date-form');
+        $dateTo = request('date-to');
+        $user = request('user');
+        $status = request('status');
 
-        if ($search) {
-            $invoices = Invoice::with('customers', 'users','payments')
-                ->where(function ($query) use ($search) {
-                    $query->where('invoice_no', 'like', "%{$search}%")
-                        ->orWhereHas('customers', function ($query) use ($search) {
-                            $query->where('email', 'like', "%{$search}%")
-                                ->orWhere('phone_number', 'like', "%{$search}%")
-                                ->orWhere('name', 'like', "%{$search}%");
-                        })->orWhere(function ($query) use ($search) {
-                            $query->whereRaw("json_unquote(json_extract(products, '$**.product_name')) like ?", ["%{$search}%"]);
-                        });
-                })
-                ->orderByDesc('created_at')
-                ->paginate(10)
-                ->withQueryString();
-        }elseif(!empty($dateFrom && $dateTo && $user && $status)){
-            $invoices = Invoice::with('customers','users','payments')
-                ->whereBetween('created_at',[$dateFrom,$dateTo])
-                ->where('user_id',$user)
-                ->orderByDesc('created_at')
-                ->paginate(10)
-                ->withQueryString();
-            ;
-        }elseif (!empty($dateTo && $dateFrom && $user)){
-            $invoices = Invoice::with('customers','users','payments')
-                ->whereBetween('created_at',[$dateFrom,$dateTo])
-                ->where('user_id',$user)
-                ->orderByDesc('created_at')
-                ->paginate(10)
-                ->withQueryString();
-        }elseif (!empty($dateTo && $dateFrom)){
-            $invoices = Invoice::with('customers','users','payments')
-                ->whereBetween('created_at',[$dateFrom,$dateTo])
-                ->orderByDesc('created_at')
-                ->paginate(10)
-                ->withQueryString();
-        }
-        else {
-            $invoices = Invoice::with('customers','users','payments')
-                ->orderByDesc('created_at')
-                ->paginate(10);
-        }
+        Session::put([
+            'search' => $search,
+            'date_form' => $dateFrom,
+            'date_to' => $dateTo,
+            'by_user' => $user,
+            'by_status' => $status
+        ]);
+
+        $invoices = Invoice::with('customers', 'users', 'payments')
+            ->when($search, function ($query) use ($search) {
+                $query->where('invoice_no', 'like', "%{$search}%")
+                    ->orWhereHas('customers', function ($query) use ($search) {
+                        $query->where('email', 'like', "%{$search}%")
+                            ->orWhere('phone_number', 'like', "%{$search}%")
+                            ->orWhere('name', 'like', "%{$search}%");
+                    })
+                    ->orWhere(function ($query) use ($search) {
+                        $query->whereRaw("json_unquote(json_extract(products, '$**.product_name')) like ?", ["%{$search}%"]);
+                    });
+            })
+            ->when($dateFrom && $dateTo, function ($query) use ($dateFrom, $dateTo) {
+                $query->whereBetween('created_at', [$dateFrom, $dateTo]);
+            })
+            ->when($user, function ($query) use ($user) {
+                $query->where('user_id', $user);
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->orderByDesc('created_at')
+            ->paginate(10)
+            ->withQueryString();
+
 
         if (auth()->check()) {
             $user = auth()->user();

@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Warranty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Mpdf\Mpdf;
 
 class AdminQuotationController extends Controller
@@ -27,6 +28,12 @@ class AdminQuotationController extends Controller
         $dateTo = \request('date_to');
         $byUser = \request('by_user');
         $byStatus = \request('by_status');
+
+        Session::put('search',$search);
+        Session::put('date_form',$dateFrom);
+        Session::put('date_to',$dateTo);
+        Session::put('by_user',$byUser);
+        Session::put('by_status',$byStatus);
 
         $users = User::all();
         $customers = CustomerModel::all();

@@ -1,13 +1,20 @@
 <table>
     <thead>
     <tr>
-        <h1 style="font-size: 25px">
-            All Quotation Data
-        </h1>
-    </tr>
-    <tr>
+        <th>
+            SRL
+        </th>
+        <th>
+            Year
+        </th>
+        <th>
+            Month
+        </th>
         <th>
             Created At Date
+        </th>
+        <th>
+            User Name
         </th>
         <th>
             <h1>
@@ -27,7 +34,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($quotations as $quotation)
+    @foreach($quotations as $index=>$quotation)
 
         @php
             $products = json_decode($quotation->products,true);
@@ -35,17 +42,27 @@
 
         <tr>
             <td>
+                {{$index + 1}}
+            </td>
+            <td>
+                {{$quotation->created_at->format('Y')}}
+            </td>
+            <td>
+                {{$quotation->created_at->format('M')}}
+            </td>
+            <td>
                 {{$quotation->created_at->format('d-m-Y')}}
+            </td>
+            <td>
+                {{$quotation->users['name']}}
             </td>
             <td>
                 <p>
                     Name:-{{ $quotation->customers['name'] }}
                 </p>
-                <br>
                 <p>
                     Phone Number:-{{ $quotation->customers['phone_number'] }}
                 </p>
-                <br>
                 <p>
                     Email:-{{ $quotation->customers['email'] }}
                 </p>
@@ -56,18 +73,23 @@
                     <p>
                         Product Name:{{$product['product_name']}}
                     </p>
-                    <br>
                     <p>
 
                         Product Code:{{$product['product_code']}}
                     </p>
-                    <br>
                     <p>
                         Product unit price:{{$product['unit_price']}}
                     </p>
+                    <hr>
                 @endforeach
             </td>
         </tr>
     @endforeach
+        <tr>
+            <td>
+                {{$quotations->count()}}
+            </td>
+        </tr>
+
     </tbody>
 </table>

@@ -7,10 +7,11 @@
             {{csrf_field()}}
             <div class="row">
                 <div class="col-4">
-                    <div>
+                    <div class="">
                         <h3>All Queries</h3>
-                        <a href="{{route('user-query-export')}}">
-                            user-query-export
+                        <hr>
+                        <a style="font-size: 18px" href="{{request()->routeIs('all-query') ? route('user-query-export') : route('admin-query-export')}}">
+                            <i class="fas fa-file-excel"></i> Export
                         </a>
                     </div>
                 </div>

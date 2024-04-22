@@ -21,78 +21,91 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card ">
+
+                                    <div class="d-flex">
+                                        <div class="d-flex justify-content-end gap-2 mb-3">
+                                            <div class="p-2" style="border-left: 3px solid #000; background: rgba(241, 196, 15, 0.3); width: 200px">
+                                                <h4>{{$totalQuotation}}</h4>
+                                                <h5 class="">Total Quotations </h5>
+                                            </div>
+                                            <div class="p-2" style="border-left: 3px solid #000; background: rgba(13,106,244,0.3);  width: 200px">
+                                                <h4>$ {{floor($totalQuotationValue)}}</h4>
+                                                <h5>Total Quotation Value</h5>
+                                            </div>
+                                            <div class="p-2" style="border-left: 3px solid #000; background: rgba(124,252,0,0.3);  width: 200px">
+                                                <h4>$ {{floor($totalSentValue)}}</h4>
+                                                <h5>Sent Quotation</h5>
+                                                <h4>{{count($quotationSents)}}</h4>
+                                            </div>
+                                            <div class="p-2" style="border-left: 3px solid #000; background: rgba(0,128,0,0.3);  width: 200px">
+                                                <h4>$ {{floor($totalQuotationNotSentValue)}}</h4>
+                                                <h5>Quotation Not Sent</h5>
+                                                <h4>{{count($quotationNotSents)}}</h4>
+                                            </div>
+                                            <div class="p-2" style="border-left: 3px solid #000; background: rgba(255,0,0,0.3);  width: 200px">
+                                                <h4>{{count($closedQueries)}}</h4>
+                                                <h5>Closed Queries </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <div class="date-filter p-2">
+                                        <div class="p-3">
+                                            <h3>All Quotation</h3>
+                                            <hr>
+                                            <a href="{{route('admin-quotation-export')}}" style="font-size: 18px">
+                                                <i class="fas fa-file-excel"></i> Export Quotation Report
+                                            </a>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-end">
                                             <div class="date-filter p-2">
-                                            <form method="GET" action="{{route('admin-all-quotation')}}">
-                                                {{csrf_field()}}
-                                                <div class="mb-3 row">
-                                                    <div class="col-md-10 ">
-                                                       <div class="d-flex">
-                                                           <label for="inputState" class="form-label" style="margin-right: 10px">User</label>
-                                                           <div class="" style="width: 300px">
+                                                <form method="GET" action="{{route('admin-all-quotation')}}">
+                                                    {{csrf_field()}}
+                                                    <div class="mb-3 row">
+                                                        <div class="col-md-12 ">
+                                                            <div class="d-flex">
+                                                                <label for="inputState" class="form-label" style="margin-right: 10px">User</label>
+                                                                <div class="" style="width: 300px">
 
-                                                               <select id="inputState" name="by_user" class="form-select">
-                                                                   <option> </option>
-                                                                   @foreach($users as $user)
-                                                                       <option value="{{$user->id}}">{{$user->name}}</option>
-                                                                   @endforeach
-                                                               </select>
-                                                           </div>
-                                                           <label for="inputState" class="form-label"  style="margin-right: 10px; margin-left: 5px"> Status</label>
-                                                           <div class="" style="width: 300px">
+                                                                    <select id="inputState" name="by_user" class="form-select">
+                                                                        <option> </option>
+                                                                        @foreach($users as $user)
+                                                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <label for="inputState" class="form-label"  style="margin-right: 10px; margin-left: 5px"> Status</label>
+                                                                <div class="" style="width: 300px">
 
-                                                               <select id="inputState" name="by_status" class="form-select">
-                                                                   <option>   </option>
-                                                                   <option value="Sent">Sent</option>
-                                                                   <option value="Not Sent ">Not Sent</option>
-                                                               </select>
-                                                           </div>
-                                                           <span class="m-2">From</span>
+                                                                    <select id="inputState" name="by_status" class="form-select">
+                                                                        <option>   </option>
+                                                                        <option value="Sent">Sent</option>
+                                                                        <option value="Not Sent ">Not Sent</option>
+                                                                    </select>
+                                                                </div>
+                                                                <span class="m-2">From</span>
                                                                 <div>
                                                                     <input name="date_from" class="form-control" type="date" id="html5-date-input">
                                                                 </div>
-                                                           <span class="m-2">to</span>
+                                                                <span class="m-2">to</span>
                                                                 <div>
                                                                     <input name="date_to" class="form-control" type="date" id="html5-date-input">
                                                                 </div>
-                                                           <div>
-                                                               <button type="submit" class="btn btn-outline-primary waves-effect waves-light">
-                                                                   <i class="fe-filter"></i>
-                                                               </button>
-                                                           </div>
-                                                       </div>
+                                                                <div>
+                                                                    <button type="submit" class="btn btn-outline-primary waves-effect waves-light">
+                                                                        <i class="fe-filter"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
+                                    </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-end gap-2 mb-3">
-                                        <div class="p-2" style="border-left: 3px solid #000; background: rgba(241, 196, 15, 0.3); width: 200px">
-                                            <h4>{{$totalQuotation}}</h4>
-                                            <h5 class="">Total Quotations </h5>
-                                        </div>
-                                        <div class="p-2" style="border-left: 3px solid #000; background: rgba(13,106,244,0.3);  width: 200px">
-                                            <h4>$ {{floor($totalQuotationValue)}}</h4>
-                                            <h5>Total Quotation Value</h5>
-                                        </div>
-                                        <div class="p-2" style="border-left: 3px solid #000; background: rgba(124,252,0,0.3);  width: 200px">
-                                            <h4>$ {{floor($totalSentValue)}}</h4>
-                                            <h5>Sent Quotation</h5>
-                                            <h4>{{count($quotationSents)}}</h4>
-                                        </div>
-                                        <div class="p-2" style="border-left: 3px solid #000; background: rgba(0,128,0,0.3);  width: 200px">
-                                            <h4>$ {{floor($totalQuotationNotSentValue)}}</h4>
-                                            <h5>Quotation Not Sent</h5>
-                                            <h4>{{count($quotationNotSents)}}</h4>
-                                        </div>
-                                        <div class="p-2" style="border-left: 3px solid #000; background: rgba(255,0,0,0.3);  width: 200px">
-                                            <h4>{{count($closedQueries)}}</h4>
-                                            <h5>Closed Queries </h5>
-                                        </div>
-                                    </div>
+                                    <hr>
                                     <div class="table-responsive text-nowrap">
                                         <table class="table table-striped mb-0">
                                             <thead>
@@ -154,46 +167,53 @@
                                                         {{$quotation->delivery_date}}
                                                     </td>
                                                     <td>
-                                                        <div class="d-flex gap-1">
-                                                           <a style="width: 45px; height: 45px; padding: 0"
-                                                              class="btn btn-outline-primary rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center" target="_blank"
-                                                              href="{{route('admin-view-quotation-pdf',[$quotation->customer_id,$quotation->id])}}">
-                                                               <i class="fe-eye" style="font-size: 20px"></i>
-                                                           </a>
-                                                            <button style="width: 45px; height: 45px; padding: 0" type="button"
-                                                                    class="btn btn-outline-info rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
-                                                                    data-bs-toggle="modal" data-bs-target="#edit-quotation-form-{{$quotation->id}}">
-                                                                <i class="fe-edit-1" style="font-size: 20px"></i>
-                                                            </button>
+                                                        <div class="d-flex flex-column justify-content-around gap-2">
+                                                           <div class="d-flex justify-content-between">
+                                                               <a style="width: 45px; height: 45px; padding: 0"
+                                                                  class="btn btn-outline-primary rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center" target="_blank"
+                                                                  href="{{route('admin-view-quotation-pdf',[$quotation->customer_id,$quotation->id])}}">
+                                                                   <i class="fe-eye" style="font-size: 20px"></i>
+                                                               </a>
+                                                               <button style="width: 45px; height: 45px; padding: 0" type="button"
+                                                                       class="btn btn-outline-info rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
+                                                                       data-bs-toggle="modal" data-bs-target="#edit-quotation-form-{{$quotation->id}}">
+                                                                   <i class="fe-edit-1" style="font-size: 20px"></i>
+                                                               </button>
 
-                                                            <a style="width: 45px; height: 45px; padding: 0"
-                                                               onclick="return confirm('Are you sure you want to delete this quotation?')"
-                                                               class="btn btn-outline-danger rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
-                                                               href="{{ route('delete-quotation', [$quotation->customer_id, $quotation->id]) }}">
-                                                                <i class="fe-trash-2" style="font-size: 20px"></i>
-                                                            </a>
-                                                            <button style="width: 45px; height: 45px; padding: 0" type="button"
-                                                                    class="btn btn-outline-secondary rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
-                                                                    data-bs-toggle="modal" data-bs-target="#invoice-from-quotation-{{$quotation->id}}">
-                                                                <i class="fe-file-text" style="font-size: 20px"></i>
-                                                            </button>
+                                                               <a style="width: 45px; height: 45px; padding: 0"
+                                                                  onclick="return confirm('Are you sure you want to delete this quotation?')"
+                                                                  class="btn btn-outline-danger rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
+                                                                  href="{{ route('delete-quotation', [$quotation->customer_id, $quotation->id]) }}">
+                                                                   <i class="fe-trash-2" style="font-size: 20px"></i>
+                                                               </a>
+                                                           </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <button style="width: 45px; height: 45px; padding: 0" type="button"
+                                                                        class="btn btn-outline-secondary rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
+                                                                        data-bs-toggle="modal" data-bs-target="#invoice-from-quotation-{{$quotation->id}}">
+                                                                    <i class="fe-file-text" style="font-size: 20px"></i>
+                                                                </button>
 
-                                                            <a style="width: 45px; height: 45px; padding: 0"
-                                                              class="btn btn-outline-success rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
-                                                              href="{{route('admin-sent-quotation-mail',[$quotation->customer_id,$quotation->id])}}">
-                                                               <i class="fe-send" style="font-size: 20px"></i>
-                                                           </a>
-                                                            <a style="width: 45px; height: 45px; padding: 0"
-                                                               class="btn btn-outline-dark rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
-                                                               href="{{route('generate-pdf-download',[$quotation->customer_id,$quotation->id])}}">
-                                                                <i class="fe-download" style="font-size: 20px"></i>
-                                                            </a>
+                                                                <a style="width: 45px; height: 45px; padding: 0"
+                                                                   class="btn btn-outline-success rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
+                                                                   href="{{route('admin-sent-quotation-mail',[$quotation->customer_id,$quotation->id])}}">
+                                                                    <i class="fe-send" style="font-size: 20px"></i>
+                                                                </a>
+                                                                <a style="width: 45px; height: 45px; padding: 0"
+                                                                   class="btn btn-outline-dark rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
+                                                                   href="{{route('generate-pdf-download',[$quotation->customer_id,$quotation->id])}}">
+                                                                    <i class="fe-download" style="font-size: 20px"></i>
+                                                                </a>
 
-                                                            <button style="width: 45px; height: 45px; padding: 0" type="button"
-                                                                    class="btn btn-outline-warning rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
-                                                                    data-bs-toggle="modal" data-bs-target="#quotation-history-{{$quotation->id}}">
-                                                                <i class="fe-watch" style="font-size: 20px"></i>
-                                                            </button>
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-center">
+                                                                <button style="width: 45px; height: 45px; padding: 0" type="button"
+                                                                        class="btn btn-outline-warning rounded-circle waves-effect waves-light d-flex justify-content-center align-items-center"
+                                                                        data-bs-toggle="modal" data-bs-target="#quotation-history-{{$quotation->id}}">
+                                                                    <i class="fe-watch" style="font-size: 20px"></i>
+                                                                </button>
+                                                            </div>
 
                                                         </div>
                                                     </td>
