@@ -184,6 +184,14 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle">
+
+                                                @php
+                                                    if (!empty($invoice->delivery_charge) || !empty($invoice->discount)){
+                                                        $totalPrice = $totalPrice + $invoice->delivery_charge;
+                                                        $totalPrice = $totalPrice - $invoice->discount;
+                                                    }
+                                                @endphp
+
                                                 total: {{$totalPrice}}<br>
                                                 paid: {{ $invoice->payments->sum('amount') }}<br>
                                                 Due: {{ $totalPrice - $invoice->payments->sum('amount') }}

@@ -11,6 +11,7 @@ use App\Models\DeliveryTerm;
 use App\Models\Invoice;
 use App\Models\Payment;
 use App\Models\PaymentType;
+use App\Models\PDFsetup;
 use App\Models\Query;
 use App\Models\QueryNote;
 use App\Models\QuerySource;
@@ -735,6 +736,9 @@ class CustomerProfileController extends Controller
             ->with('customers')
             ->first();
 
+//        PDF Option
+        $pdfSetup = PDFsetup::where('name',$quotation->logo)->first();
+
         if (!$quotation) {
             // Handle the case when the quotation is not found
             // For example, return an error message or redirect to another page
@@ -749,7 +753,7 @@ class CustomerProfileController extends Controller
         ]);
         $quotationNumber = 'Quotation'.$quotation->quotation_number.'.pdf';
 
-        $pdf->WriteHTML(view('pdf.quotationPdf', compact('quotation'))->render());
+        $pdf->WriteHTML(view('pdf.quotationPdf', compact('quotation','pdfSetup'))->render());
 
         // Output the PDF as a string
         $pdfContent = $pdf->Output($quotationNumber, 'S');
@@ -759,6 +763,7 @@ class CustomerProfileController extends Controller
             'Content-Type' => 'application/pdf',
         ]);
 
+//        dd($pdfSetup);
     }
 
 

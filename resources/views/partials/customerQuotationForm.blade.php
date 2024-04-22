@@ -86,11 +86,15 @@
 
                             <div class="row">
                                 <div class="mb-3 col-6">
+                                    @php
+                                        $pdfs = \App\Models\PDFsetup::all();
+                                    @endphp
                                     <label class="form-label" for="basic-default-fullname">Select Logo Type*</label>
                                     <select required name="logo" id="customer" class="form-select">
                                         <option> </option>
-                                        <option value="Esmart">Esmart</option>
-                                        <option value="Conquest Impex">Conquest Impex</option>
+                                        @foreach($pdfs as $pdf)
+                                            <option value="{{$pdf->name}}">{{$pdf->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3 col-6">

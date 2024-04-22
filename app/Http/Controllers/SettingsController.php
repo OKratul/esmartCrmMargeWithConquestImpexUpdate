@@ -7,6 +7,7 @@ use App\Models\CrmAdmin;
 use App\Models\DeliveryTerm;
 use App\Models\ExpenseName;
 use App\Models\PaymentType;
+use App\Models\PDFsetup;
 use App\Models\QuerySource;
 use App\Models\QueryStatus;
 use App\Models\Unit;
@@ -72,8 +73,9 @@ class SettingsController extends Controller
     public function optionsView(){
 
         $users = User::all();
+        $pdfSets = PDFsetup::orderByDesc('created_at')->get();
 
-        return view('adminOptions', compact('users'));
+        return view('adminOptions', compact('users','pdfSets'));
 
     }
 
