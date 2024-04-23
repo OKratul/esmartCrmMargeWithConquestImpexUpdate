@@ -110,12 +110,31 @@ Route::group(['middleware'=>'adminAuth'],function (){
     Route::post('admin/profile/update',[SettingsController::class,'adminProfile'])->name('admin-profile-update');
 
     Route::get('admin/options',[SettingsController::class,'optionsView'])->name('view-admin-options');
-    Route::post('admin/options',[SettingsController::class,'unitAdd'])->name('add-unit-options');
+
+    Route::post('admin/options/unit',[SettingsController::class,'unitAdd'])->name('add-unit-options');
+    Route::post('admin/options/edit/{id}/unit',[SettingsController::class,'editUnit'])->name('edit-unit-options');
+    Route::get('admin/options/delete/{id}/unit',[SettingsController::class,'deleteUnit'])->name('delete-unit-options');
+
     Route::post('admin/options/query-source',[SettingsController::class,'querySourceAdd'])->name('add-querySource-options');
+    Route::post('admin/edit/{id}/query_source',[SettingsController::class,'editQuerySource'])->name('edit-query-source');
+    Route::get('admin/delete/{id}/query_source',[SettingsController::class,'deleteQuerySource'])->name('delete-query-source');
+
     Route::post('admin/options/query-status',[SettingsController::class,'queryStatusAdd'])->name('add-queryStatus-options');
+    Route::post('admin/options/edit/{id}/query-status',[SettingsController::class,'editQueryStatus'])->name('edit-queryStatus-options');
+    Route::get('admin/options/delete/{id}/query-status',[SettingsController::class,'deleteQueryStatus'])->name('delete-queryStatus-options');
+
     Route::post('admin/options/delivery-term',[SettingsController::class,'deliveryTermAdd'])->name('add-deliveryTerm-options');
+    Route::post('admin/options/edit/{id}/delivery-term',[SettingsController::class,'editDeliveryTerm'])->name('edit-deliveryTerm-options');
+    Route::get('admin/options/delete/{id}/delivery-term',[SettingsController::class,'deleteDeliveryTerms'])->name('delete-deliveryTerm-options');
+
     Route::post('admin/options/payment-type',[SettingsController::class,'paymentTypeAdd'])->name('add-paymentType-options');
+    Route::post('admin/options/edit/{id}/payment-type',[SettingsController::class,'editPaymentType'])->name('edit-paymentType-options');
+    Route::get('admin/options/delete/{id}/payment-type',[SettingsController::class,'deletePaymentType'])->name('delete-paymentType-options');
+
     Route::post('admin/options/warranty',[SettingsController::class,'warrantyAdd'])->name('warranty');
+    Route::post('admin/options/edit/{id}/warranty',[SettingsController::class,'editWarranty'])->name('edit-warranty');
+    Route::get('admin/options/delete/{id}/warranty',[SettingsController::class,'deleteWarranty'])->name('delete-warranty');
+
     Route::post('admin/options/add-expense',[SettingsController::class,'addExpense'])->name('add-expense');
 
 // ======== All Query =======

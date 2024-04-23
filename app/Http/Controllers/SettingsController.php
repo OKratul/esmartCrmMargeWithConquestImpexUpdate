@@ -8,6 +8,7 @@ use App\Models\DeliveryTerm;
 use App\Models\ExpenseName;
 use App\Models\PaymentType;
 use App\Models\PDFsetup;
+use App\Models\Query;
 use App\Models\QuerySource;
 use App\Models\QueryStatus;
 use App\Models\Unit;
@@ -89,7 +90,27 @@ class SettingsController extends Controller
             'unit'=> \request('unit')
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Unit Added Successfully'.' '.\request('unit'));
+
+    }
+
+    public function editUnit($id){
+        $this->validate(\request(),[
+            'unit' => 'required',
+        ]);
+
+        Unit::where('id',$id)->update([
+            'unit' => \request('unit')
+        ]);
+
+        return redirect()->back()->with('success','Unit Updated' .' '.\request('unit'));
+    }
+
+    public function deleteUnit($id){
+
+        Unit::where('id',$id)->delete();
+
+        return redirect()->back()->with('success','Unit deleted');
 
     }
 
@@ -103,7 +124,30 @@ class SettingsController extends Controller
             'query_source' => \request('query_source')
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Query Source Added');
+
+    }
+
+    public function editQuerySource($id){
+
+        $this->validate(\request(),[
+            'query_source' => 'required'
+        ]);
+
+        QuerySource::where('id',$id)->update([
+            'query_source' => \request('query_source'),
+        ]);
+
+        return redirect()->back()->with('success', 'Query Source Updated'.' ' .\request('query_source'));
+
+    }
+
+
+    public function deleteQuerySource($id){
+
+        QuerySource::where('id',$id)->delete();
+
+        return redirect()->back()->with('success', 'Query Source Deleted');
 
     }
 
@@ -117,9 +161,32 @@ class SettingsController extends Controller
             'query_status' => \request('query_status')
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Query Status Added'. ' ' .\request('query_status'));
 
     }
+
+    public function editQueryStatus($id){
+        $this->validate(\request(),[
+            'query_status' => 'required',
+        ]);
+
+        QueryStatus::where('id',$id)->update([
+            'query_status' => \request('query_status')
+        ]);
+
+        return redirect()->back()->with('success','Query Status Edited'. ' ' .\request('query_status'));
+
+    }
+
+    public function deleteQueryStatus($id){
+
+        QueryStatus::where('id',$id)->delete();
+        return redirect()->back()->with('success', 'Query Status Deleted');
+
+    }
+
+
+
     public function deliveryTermAdd(){
 
         $this->validate(\request(),[
@@ -130,9 +197,31 @@ class SettingsController extends Controller
             'delivery_term'=> \request('delivery_term')
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Delivery Term Added'.' '.\request('delivery_term'));
 
     }
+
+    public function editDeliveryTerm($id){
+
+        $this->validate(\request(),[
+            'delivery_term' => 'required',
+        ]);
+
+        DeliveryTerm::where('id',$id)->update([
+            'delivery_term' => \request('delivery_term')
+        ]);
+
+        return redirect()->back()->with('success','Delivery Term Updated'.' '.\request('delivery_term'));
+
+    }
+
+    public function deleteDeliveryTerms($id){
+
+        DeliveryTerm::where('id',$id)->delete();
+        return redirect()->back()->with('success','Delivery Term Deleted');
+
+    }
+
     public function paymentTypeAdd(){
 
         $this->validate(\request(),[
@@ -143,9 +232,32 @@ class SettingsController extends Controller
             'payment_type' => \request('payment_type')
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Payment Type Added Successfully'.' '. \request('payment_type') );
 
     }
+
+    public function editPaymentType($id){
+
+        $this->validate(\request(),[
+            'payment_type' => 'required',
+        ]);
+
+        PaymentType::where('id',$id)->update([
+            'payment_type' => \request('payment_type')
+        ]);
+
+        return redirect()->back()->with('success','Payment Type Updated'.' '.\request('payment_type'));
+
+    }
+
+    public function deletePaymentType($id){
+
+        PaymentType::where('id',$id)->delete();
+
+        return redirect()->back()->with('success','Payment Type Deleted');
+
+    }
+
     public function warrantyAdd(){
 
         $this->validate(\request(),[
@@ -156,7 +268,28 @@ class SettingsController extends Controller
             'warranty' => \request('warranty')
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Warranty Added');
+
+    }
+
+    public function editWarranty($id){
+
+        $this->validate(\request(),[
+            'warranty' => 'required',
+        ]);
+
+        Warranty::where('id',$id)->update([
+            'warranty' => \request('warranty')
+        ]);
+
+        return redirect()->back()->with('success','Warranty option Updated'.' '.\request('warranty'));
+
+    }
+
+    public function deleteWarranty($id){
+
+        Warranty::where('id',$id)->delete();
+        return redirect()->back()->with('success','Warranty option Deleted');
 
     }
 

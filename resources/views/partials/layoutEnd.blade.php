@@ -50,6 +50,8 @@
 
 <script src="{{asset('Asset/assets/libs/dropzone/min/dropzone.min.js')}}"></script>
 
+{{-- Table Edit Mini --}}
+<script src="{{asset('Asset/assets/libs/jquery-tabledit/jquery.tabledit.min.js')}}"></script>
 
 {{--=========Custom Js --}}
     <script src="{{asset('Asset/js/queryTable.js')}}"></script>
