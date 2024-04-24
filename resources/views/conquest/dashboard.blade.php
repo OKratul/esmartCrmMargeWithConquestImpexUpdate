@@ -36,11 +36,11 @@
                                     </div>
                                     <div class="p-3 rounded" style="background: rgba(5,255,68,0.4)">
                                         <h3>Total Paid</h3>
-                                        <h4>${{$totalInvoiceValue}}</h4>
+                                        <h4>${{$totalPayment}}</h4>
                                     </div>
                                     <div class="p-3 rounded" style="background: rgba(247, 81, 69,0.4)">
                                         <h3>Total Due</h3>
-                                        <h4>${{$totalInvoiceValue}}</h4>
+                                        <h4>${{$totalInvoiceValue - $totalPayment}}</h4>
                                     </div>
                                 </div>
                             </div>

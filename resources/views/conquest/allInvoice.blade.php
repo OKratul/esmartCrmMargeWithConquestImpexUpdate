@@ -248,7 +248,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                    <button type="button" class="btn btn-sm btn-soft-dark" id="add-more">Add More</button>
+                                                                    <button type="button" class="btn btn-sm btn-soft-dark add-more-make-invoice" id="add-more-make-invoice">Add More</button>
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
@@ -448,14 +448,15 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        let addButton = document.getElementById('add-more-make-invoice');
+        let addButtons = document.querySelectorAll('.add-more-make-invoice');
 
-        addButton.addEventListener('click', function () {
-            let productContainer = document.querySelector('.add-product-make-invoice');
+        addButtons.forEach(function (addButton) {
+            addButton.addEventListener('click', function () {
+                let productContainer = this.closest('.modal-content').querySelector('.add-product-make-invoice');
 
-            let addProductDiv = document.createElement('div');
+                let addProductDiv = document.createElement('div');
 
-            addProductDiv.innerHTML = `
+                addProductDiv.innerHTML = `
                 <div class="mb-2 col-12">
                     <!-- Add remove button -->
                     <button class="remove_product_make_invoice btn btn-danger">Remove</button>
@@ -465,28 +466,29 @@
                     <select name="product_name[]" class="form-select" aria-label="Default select example">
                         <option> </option>
                         @foreach($products as $product)
-            <option value="{{$product->product_code}}">{{$product->name}}</option>
+                <option value="{{$product->product_code}}">{{$product->name}}</option>
                         @endforeach
-            </select>
-        </div>
-        <div class="mb-2 col-12">
-            <label for="simpleinput" class="form-label">Quantity</label>
-            <input multiple name="quantity[]" type="text" class="form-control">
-        </div>
-        <div class="mb-2 col-12">
-            <label for="simpleinput" class="form-label">Unit Price</label>
-            <input multiple name="unit_price[]" type="text" class="form-control">
-        </div>
-        <hr>
+                </select>
+            </div>
+            <div class="mb-2 col-12">
+                <label for="simpleinput" class="form-label">Quantity</label>
+                <input multiple name="quantity[]" type="text" class="form-control">
+            </div>
+            <div class="mb-2 col-12">
+                <label for="simpleinput" class="form-label">Unit Price</label>
+                <input multiple name="unit_price[]" type="text" class="form-control">
+            </div>
+            <hr>
 `;
 
-            productContainer.appendChild(addProductDiv);
+                productContainer.appendChild(addProductDiv);
 
-            // Attach the event listener to the newly created remove button
-            let removeButton = addProductDiv.querySelector('.remove_product_make_invoice');
-            removeButton.addEventListener('click', function () {
-                // Remove the parent div when the remove button is clicked
-                this.parentNode.parentNode.remove();
+                // Attach the event listener to the newly created remove button
+                let removeButton = addProductDiv.querySelector('.remove_product_make_invoice');
+                removeButton.addEventListener('click', function () {
+                    // Remove the parent div when the remove button is clicked
+                    this.parentNode.parentNode.remove();
+                });
             });
         });
     });

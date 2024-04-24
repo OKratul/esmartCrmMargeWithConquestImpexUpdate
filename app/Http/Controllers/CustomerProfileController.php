@@ -732,6 +732,7 @@ class CustomerProfileController extends Controller
     }
 
     public function viewQuotation($customer_id, $quotation_id){
+
         $quotation = Quotation::where('id', $quotation_id)
             ->with('customers')
             ->first();
@@ -740,8 +741,6 @@ class CustomerProfileController extends Controller
         $pdfSetup = PDFsetup::where('name',$quotation->logo)->first();
 
         if (!$quotation) {
-            // Handle the case when the quotation is not found
-            // For example, return an error message or redirect to another page
             return "Quotation not found";
         }
 

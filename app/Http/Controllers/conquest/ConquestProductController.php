@@ -12,10 +12,20 @@ use Illuminate\Support\Facades\DB;
 class ConquestProductController extends Controller
 {
     public function allProduct(){
-        $products = ConquestProduct::with('stocks')->orderByDesc('created_at')->paginate(10);
+
+        $search = \request('search');
+
+        $products = ConquestProduct::with('stocks')
+            ->where(function ($query) use ($search) {
+                $query->where('product_code', 'like', '%' . $search . '%')
+                    ->orWhere('name', 'like', '%' . $search . '%');
+            })
+            ->orderByDesc('created_at')
+            ->paginate(10);
 
 //        dd($products);
         return view('conquest.allProducts',compact('products'));
+
     }
 
     public function addProduct(){

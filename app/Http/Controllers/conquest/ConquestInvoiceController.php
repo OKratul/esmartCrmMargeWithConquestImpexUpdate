@@ -14,7 +14,22 @@ use Mpdf\Mpdf;
 class ConquestInvoiceController extends Controller
 {
     public function allInvoice(){
-        $invoices = ConquestInvoice::with('customers')->orderByDesc('created_at')->paginate(10);
+
+        $search = \request('search');
+
+        $invoices = ConquestInvoice::with('customers')
+            ->where(function ($query) use ($search) {
+                $query->whereHas('customers', function ($customerQuery) use ($search) {
+                    $customerQuery->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('email2', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%');
+                });
+            })
+            ->orWhere('product_id', 'like', '%' . $search . '%')
+            ->orWhere('invoice_number', 'like', '%' . $search . '%')
+            ->orderByDesc('created_at')
+            ->paginate(10);
 
         $customers = ConquestCustomer::all();
         $products = ConquestProduct::all();

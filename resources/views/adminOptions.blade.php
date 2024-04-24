@@ -187,11 +187,11 @@
                                                     @endif
                                                     @foreach($pdfSets as $pdfSet)
                                                         <div class="card" style="width: 300px;border: 1px solid #cccccc">
-                                                            <img class="card-img-top img-fluid mt-2" src="{{$pdfSet->logo}}" alt="Card image cap">
+                                                            <img class="card-img-top img-fluid mt-2" src="{{asset('images/pdf/'.$pdfSet->logo)}}" alt="Card image cap">
                                                             <div class="card-body">
                                                                 <h4 class="card-title">{{$pdfSet->name}}</h4>
                                                                 <p class="card-text">
-                                                                    {{$pdfSet->address}}
+                                                                    {!! $pdfSet->address !!}
                                                                 </p>
                                                             </div>
                                                             <ul class="list-group list-group-flush">
@@ -201,17 +201,82 @@
                                                                 <li class="list-group-item">Designation:- {{$pdfSet->designation}}</li>
                                                             </ul>
                                                             <div class="card-body d-flex justify-content-center">
-                                                                <img style="width: 150px" class="card-img-top img-fluid" src="{{$pdfSet->seal}}" alt="Card image cap">
+                                                                <img style="width: 150px" class="card-img-top img-fluid" src="{{asset('images/pdf/'.$pdfSet->seal)}}" alt="Card image cap">
                                                             </div>
-                                                            <div class="card-body">
-                                                                <a href="#" class="card-link">Card link</a>
-                                                                <a href="#" class="card-link">Another link</a>
+                                                            <div class="card-body d-flex justify-content-center gap-2">
+                                                                <button type="button" class="btn btn-outline-dark rounded-pill waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#pdf-set-{{$pdfSet->id}}">
+                                                                    <i class="fe-edit-1"></i> Edit
+                                                                </button>
+                                                                <a href="{{ route('delete-pdf-setup', [$pdfSet->id]) }}" class="btn btn-outline-danger rounded-pill waves-effect waves-light"  onclick="return confirm('Are you sure you want to delete {{$pdfSet->name}} Pdf Setup?');">
+                                                                    <i class="fe-trash-2"></i> Delete
+                                                                </a>
+
                                                             </div>
                                                         </div>
                                                     @endforeach
                                                 </div>
                                             </div>
                                         </div>
+
+{{---------------------           Pdf Setup Model  ---------------------}}
+
+                                        @foreach($pdfSets as $pdfSet)
+                                            <div class="modal fade" id="pdf-set-{{$pdfSet->id}}" tabindex="-1" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="myLargeModalLabel">Edit Pdf Set</h4>
+                                                            <img class="card-img-top img-fluid mt-2" src="{{asset('images/pdf/'.$pdfSet->logo)}}" alt="Card image cap" style="width:200px;margin-left:50px ">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="POST" action="{{route('edit-pdf-setup',[$pdfSet->id])}}" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <div>
+                                                                    <div class="mb-2">
+                                                                        <label for="example-palaceholder" class="form-label">Company Name</label>
+                                                                        <input name="name" value="{{$pdfSet->name}}" type="text" id="example-palaceholder" class="form-control" placeholder="Esmart">
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="example-fileinput" class="form-label">Upload Logo</label>
+                                                                        <input type="file" name="logo" value="{{$pdfSet->logo}}" id="example-fileinput" class="form-control">
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="example-textarea" class="form-label">Address (use "&lt;br&gt;" for line break)</label>
+                                                                        <textarea name="address" class="form-control" id="example-textarea" rows="5">
+                                                                            {{$pdfSet->address}}
+                                                                        </textarea>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="example-palaceholder" class="form-label">Hotline</label>
+                                                                        <input value="{{$pdfSet->hotline}}" name="hotline" type="text" id="example-palaceholder" class="form-control" placeholder="018452154,0124563">
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="example-email" class="form-label">Email</label>
+                                                                        <input value="{{$pdfSet->email}}" type="email" id="example-email" name="email" class="form-control" placeholder="Email">
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="example-palaceholder" class="form-label">Website</label>
+                                                                        <input value="{{$pdfSet->website}}" name="website" type="url" id="example-palaceholder" class="form-control" placeholder="esmart.com.bd">
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="example-palaceholder" class="form-label">Designation</label>
+                                                                        <input value="{{$pdfSet->designation}}" name="designation" type="text" id="example-palaceholder" class="form-control" placeholder="esmart.com.bd">
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="example-fileinput" class="form-label">Seal Image</label>
+                                                                        <input type="file" name="seal" id="" class="form-control">
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        Update Setup
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                            </div>
+                                        @endforeach
 
                                     </div>
                                 </div>

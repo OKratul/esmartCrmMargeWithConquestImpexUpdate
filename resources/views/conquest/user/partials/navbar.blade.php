@@ -2,22 +2,21 @@
     <ul class="list-unstyled topnav-menu float-end mb-0">
 
         <li class="d-none d-lg-block">
-            <form class="app-search">
+            <form method="GET" class="app-search"  @if(request()->routeIs('customers'))
+                action="{{route('customers')}}"
+                  @elseif(request()->routeIs('conquest-all-products'))
+                      action="{{route('conquest-all-products')}}"
+                  @elseif(request()->routeIs('conquest-all-invoices'))
+                      action="{{route('conquest-all-invoices')}}"
+                @endif>
+                @csrf
                 <div class="app-search-box">
                     <div class="input-group">
-                       <form method="GET"
-                       @if(request()->routeIs('customers'))
-                         action="{{route('customers')}}"
-                       @endif
-                       >
-                           @csrf
                            <input name="search" type="text" class="form-control" placeholder="Search..." id="top-search">
                            <button class="btn input-group-text" type="submit">
                                <i class="fe-search"></i>
                            </button>
-                       </form>
                     </div>
-
                 </div>
             </form>
         </li>
@@ -36,7 +35,6 @@
 
         <li class="dropdown notification-list topbar-dropdown">
             <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ms-1">
                                     Nowak <i class="mdi mdi-chevron-down"></i>
                                 </span>

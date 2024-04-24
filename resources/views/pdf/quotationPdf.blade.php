@@ -15,12 +15,15 @@
                 <h3 style="font-size: 24px">Price Quotation</h3>
             </td>
             <td style="width: 50%; text-align: right;">
-{{--                <img src="{{ asset('images/pdf/' . $pdfSetup['logo']) }}" style="width: 180px">--}}
-{{--                @if($quotation->logo == 'Esmart')--}}
+                <img src="<?php echo public_path('images/pdf/' . $pdfSetup['logo']); ?>" style="width: 180px">
+
+                {{--                @if($quotation->logo == 'Esmart')--}}
 {{--                    <img src="<?php echo public_path('images/pdf/pdf_logo2.png'); ?>">--}}
 {{--                @else--}}
 {{--                    <img src="<?php echo public_path('images/pdf/Asset 1.png'); ?>" style="width: 180px">--}}
 {{--                @endif--}}
+
+
             </td>
         </tr>
         <!-- Other header content -->
@@ -41,11 +44,10 @@
                 </p>
             </td>
             <td style="text-align: right;line-height: 20px;padding-top: 10px">
-                <p>House no 1/A, Flat B2</p>
-                <p>Eskaton Garden Road, Dhaka 1000</p>
-                <p><strong>Hotline:</strong> 0961778877, 01316448804</p>
-                <p><strong>Email:</strong> query@esmart.com.bd</p>
-                <p><strong>Website:</strong> https://esmart.com.bd</p>
+                <p>{!! $pdfSetup['address'] !!}</p>
+                <p><strong>Hotline:</strong> {{$pdfSetup['hotline']}}</p>
+                <p><strong>Email:</strong> {{$pdfSetup['email']}}</p>
+                <p><strong>Website:</strong> {{$pdfSetup['website']}}</p>
             </td>
         </tr>
         <tr>
@@ -270,21 +272,24 @@
             </p>
         @endif
         <div style="line-height: 8px;">
-            <img src="{{public_path('images/pdf/seal_logo2-1.png')}}" style="width: 90px">
+
+            <img src="<?php echo public_path('images/pdf/' . $pdfSetup['seal']); ?>" style="width: 90px">
+
             <p>Best Regards</p>
             <p>{{$quotation->users['name']}}</p>
-            <p>Senior Business Development Executive</p>
+            <p>{{$pdfSetup['designation']}}</p>
 
         </div>
         <div style="line-height: 8px">
             @if($quotation->logo == 'Esmart')
-                <img src="<?php echo public_path('images/pdf/pdf_logo2.png'); ?>" style="width: 180px">
+                <img src="<?php echo public_path('images/pdf/' . $pdfSetup['logo']); ?>" style="width: 180px">
                 <p>eSmart Bangladesh</p>
-                <p>House no 1/A, Flat B2</p>
+                <p style="line-height: 18px">{!! $pdfSetup['address'] !!}</p>
             @else
-                <img src="<?php echo public_path('images/pdf/Asset 1.png'); ?>" style="width: 180px">
+                <img src="<?php echo public_path('images/pdf/' . $pdfSetup['logo']); ?>" style="width: 180px">
+
                 <p>Conquest Impex Bangladesh</p>
-                <p>House no 1/A, Flat B2</p>
+                <p style="line-height: 18px">{!! $pdfSetup['address'] !!}</p>
             @endif
 
         </div>

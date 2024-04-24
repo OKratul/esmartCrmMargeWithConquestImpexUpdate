@@ -362,6 +362,8 @@ Route::group(['middleware'=>'adminAuth'],function (){
     Route::post('admin/invoice/{invoice_id}/sent-sms',[SmsSentController::class,'sentSms'])->name('sent-sms');
 
     Route::post('admin/pfd-setup',[PDFsetupController::class,'pdfSetup'])->name('pdf-setup');
+    Route::post('admin/pfd-setup/edit/{id}',[PDFsetupController::class,'editPdfSetup'])->name('edit-pdf-setup');
+    Route::get('admin/pfd-setup/delete/{id}',[PDFsetupController::class,'deletePdfset'])->name('delete-pdf-setup');
 
     //    =====Logout====
     Route::get('admin/logout',[AdminLoginController::class,'logout'])->name('admin-logout');

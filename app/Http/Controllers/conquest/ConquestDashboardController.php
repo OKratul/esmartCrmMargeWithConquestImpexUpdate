@@ -5,6 +5,7 @@ namespace App\Http\Controllers\conquest;
 use App\Http\Controllers\Controller;
 use App\Models\conquest\ConquestCustomer;
 use App\Models\conquest\ConquestInvoice;
+use App\Models\conquest\ConquestPayment;
 use App\Models\conquest\ConquestProduct;
 use Illuminate\Http\Request;
 
@@ -36,8 +37,20 @@ class ConquestDashboardController extends Controller
 
         }
 
-//        dd($customers);
+        $payments = ConquestPayment::all();
 
-        return view('conquest.dashboard',compact('products','invoices','customers','totalInvoiceValue'));
+        $totalPayment = 0;
+
+        foreach ($payments as $payment){
+
+            $totalPayment += $payment->pay_amount;
+
+        }
+
+
+//        dd($totalPayment);
+
+        return view('conquest.dashboard',
+            compact('products','invoices','customers','totalInvoiceValue','totalPayment'));
     }
 }
