@@ -1094,6 +1094,7 @@ class CustomerProfileController extends Controller
     }
 
     public function updateInvoice($customer_id,$invoice_id){
+
         $this->validate(\request(),[
             'product_name'=> 'required',
             'product_code'=> 'required',
@@ -1113,11 +1114,12 @@ class CustomerProfileController extends Controller
             'delivery_charge' => 'nullable',
             'delivery_address' => 'nullable',
             'receiver_name' => 'nullable',
-            'receiver_number' => 'nullable',
+            'phone_number' => 'nullable',
             'discount' => 'nullable',
             'extra_charge_name' => 'nullable',
             'extra_amount' => 'nullable',
-            'logo' => 'required'
+            'logo' => 'required',
+            'submitted_by' => 'required',
         ]);
 
         $data = \request()->all();
@@ -1145,7 +1147,7 @@ class CustomerProfileController extends Controller
             $admin_id = Auth::guard('admin')->id();
 
             Invoice::where('id',$invoice_id)->update([
-                'user_id' => null,
+                'user_id' => \request('submitted_by'),
                 'admin_id' => $admin_id,
                 'customer_id' => $customer_id,
                 'invoice_no' => rand(111111,999999),
@@ -1163,7 +1165,7 @@ class CustomerProfileController extends Controller
                 'created_by' => \request('submitted_by'),
                 'delivery_address'=> \request('delivery_address'),
                 'receiver_name'=> \request('receiver_name'),
-                'receiver_number'=> \request('receiver_number'),
+                'phone_number'=> \request('phone_number'),
                 'logo' => \request('logo'),
             ]);
 
@@ -1190,7 +1192,7 @@ class CustomerProfileController extends Controller
                 'created_by' => \request('submitted_by'),
                 'delivery_address'=> \request('delivery_address'),
                 'receiver_name'=> \request('receiver_name'),
-                'receiver_number'=> \request('receiver_number'),
+                'phone_number'=> \request('phone_number'),
                 'logo' => \request('logo'),
             ]);
         }

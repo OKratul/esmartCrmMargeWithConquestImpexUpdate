@@ -29,9 +29,9 @@
                 <p><strong>Email:-</strong> <?php echo $invoice->customers['email']; ?></p>
                 <p><strong>Phone Number:-</strong> <?php echo $invoice->customers['phone_number']; ?></p>
                 @if(!empty($invoice->customers['contact_name']) || !empty($invoice['receiver_name']))
-                    <p><strong>Contact Name:-</strong> <?php echo $invoice['receiver_name']; ?></p>
+                    <p><strong>Contact Name:-</strong> <?php echo $invoice->customers['contact_name']; ?></p>
                     @if(!empty($invoice->phone_number) || !empty($invoice['receiver_number']) )
-                        <p><strong>Phone Number:-</strong> <?php echo $invoice['receiver_number']; ?></p>
+                        <p><strong>Contact Person Number:-</strong> <?php echo $invoice['phone_number']; ?></p>
                     @endif
                 @endif
             </td>
@@ -220,12 +220,7 @@
             @else
                 <p>{{$invoice->admins['username']}}</p>
             @endif
-
-            @if($invoice->users['name'] == 'MD Rayhan Gofur' || $invoice->users['name'] == 'Ahmed_Fahim')
-                <p>Senior Business Development Executive</p>
-            @else
-                <p>Business Development Executive</p>
-            @endif
+              <p>Senior Business Development Executive</p>
         </div>
         <div style="line-height: 8px;width: 50%; ">
 {{--            <img src="<?php echo public_path('images/pdf/pdf_logo2.png'); ?>" style="width: 180px" alt="eSmart Bangladesh">--}}

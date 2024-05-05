@@ -64,7 +64,11 @@ use App\Http\Controllers\PromotionMialController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/',[UserLoginController::class,'login']);
+Route::get('/phpinfo', function () {
+    return phpinfo();
+});
 
 //=== Admin Login Route ====
 Route::get('admin-login',[AdminLoginController::class,'index'])->name('show-login')->middleware('ip-restriction');
@@ -88,9 +92,9 @@ Route::group(['middleware'=>'adminAuth'],function (){
 
     Route::get('crm/links',[AdminLoginController::class,'crmLinks'])->name('crm-links');
 
-    Route::post('register-user',[UserController::class,'registerUser'])->name('register-user');
+    Route::post('/register-user',[UserController::class,'registerUser'])->name('register-user');
 
-    Route::get('admin/add-user-profile/{id}',[UserProfileController::class,'addProfile'])->name('add-user-profile');
+    Route::get('/admin/add-user-profile/{id}',[UserProfileController::class,'addProfile'])->name('add-user-profile');
     Route::post('admin/add-user-profile/{id}',[UserProfileController::class,'profile'])->name('profile-added');
 
     Route::get('admin/add-website-data',[AddWebsiteDataController::class,'viewForm'])->name('add-website');
