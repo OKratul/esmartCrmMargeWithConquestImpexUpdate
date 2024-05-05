@@ -20,6 +20,7 @@ class ConquestProductController extends Controller
                 $query->where('product_code', 'like', '%' . $search . '%')
                     ->orWhere('name', 'like', '%' . $search . '%');
             })
+            ->orderByRaw('IF(quantity <= 10, 1, 0) DESC')
             ->orderByDesc('created_at')
             ->paginate(10);
 

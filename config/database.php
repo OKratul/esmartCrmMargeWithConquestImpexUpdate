@@ -43,20 +43,6 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        'wordpress' => [
-            'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'strict' => true,
-            'engine' => null,
-        ],
-
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -80,7 +66,7 @@ return [
             'driver' => 'mysql',
             'host' => env('WORDPRESS_DB_HOST', '127.0.0.1'),
             'port' => env('WORDPRESS_DB_PORT', '3306'),
-            'database' => env('WORDPRESS_DB_DATABASE', 'esmart_test'),
+            'database' => env('WORDPRESS_DB_DATABASE', 'esmart_web'),
             'username' => env('WORDPRESS_DB_USERNAME', 'root'),
             'password' => env('WORDPRESS_DB_PASSWORD', ''),
             'charset' => 'utf8mb4',

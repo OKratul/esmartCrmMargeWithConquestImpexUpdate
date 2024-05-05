@@ -717,6 +717,7 @@ class CustomerProfileController extends Controller
 
 //        dd($quotation);
 
+
         $quotationPdf = view('pdf.quotationPdf', compact('quotation'))->render();
 
         $pdf = new Mpdf([
@@ -774,10 +775,12 @@ class CustomerProfileController extends Controller
 
         $customer_email = $customers['email'];
 
+        $pdfSetup = PDFsetup::where('name',$quotation->logo)->first();
+
 //        dd($customer_email);
 //
 //        dd($quotations);
-        Mail::to($customer_email)->send(new QuotationMail($customers,$quotation));
+        Mail::to($customer_email)->send(new QuotationMail($customers,$quotation,$pdfSetup));
 
       Quotation::where('id',$quotation_id)->update([
         'status' => 'Sent',

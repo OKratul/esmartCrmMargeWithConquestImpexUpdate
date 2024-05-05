@@ -18,10 +18,12 @@ class QuotationMail extends Mailable
      */
     public $customers;
     public $quotation;
+    public $pdfSetup;
     public function __construct($customer_id,$quotation)
     {
         $this->customers = $customer_id;
         $this->quotation = $quotation;
+        $this->pdfSetup = $pdfSetup;
     }
 
     /**
@@ -73,7 +75,7 @@ class QuotationMail extends Mailable
             'format' => 'A4',
         ]);
 
-        $pdf->WriteHTML(view('pdf.quotationPdf', ['quotation' => $this->quotation])->render());
+        $pdf->WriteHTML(view('pdf.quotationPdf', ['quotation' => $this->quotation,'pdfSetup'=>$this->pdfSetup])->render());
 
         // Output the PDF as a string
         return $pdf->Output('', 'S');

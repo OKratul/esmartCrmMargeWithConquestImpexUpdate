@@ -153,10 +153,16 @@ class AdminDashboardController extends Controller
         if (!empty($paymentDateForm) && !empty($paymentDateTo)){
 
             $payments = Payment::whereBetween('created_at',[$paymentDateForm,$paymentDateTo])
-                ->with('customers','invoices')->paginate(5)->withQueryString();
+                ->with('customers','invoices')
+                ->orderByDesc('created_at')
+                ->paginate(5)
+                ->withQueryString();
 
         }else{
-            $payments = Payment::paginate(5)->withQueryString();
+            $payments = Payment::
+                    orderByDesc('created_at')
+                 ->paginate(5)
+                 ->withQueryString();
         }
 
         $overAllProcessingQuery = count(Query::where('status','Processing')->get());
@@ -164,7 +170,8 @@ class AdminDashboardController extends Controller
 
         $admins = CrmAdmin::with('attendances')->get();
 
-        $invoices = Invoice::all();
+        $currentYear = Carbon::now()->year;
+        $invoices = Invoice::whereYear('created_at', $currentYear)->get();
 
         $totalInvoiceSell = 0 ;
 

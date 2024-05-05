@@ -8,6 +8,9 @@
     <title>Quotation Pdf</title>
 </head>
 <body>
+@php
+    $pdfSetup = \App\Models\PDFsetup::where('name',$quotation->logo)->first();
+@endphp
 <div class="container">
     <table class="pdf-body" style="width: 100%;">
         <tr>

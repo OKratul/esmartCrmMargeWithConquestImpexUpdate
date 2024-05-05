@@ -66,9 +66,6 @@ use App\Http\Controllers\PromotionMialController;
 */
 
 Route::get('/',[UserLoginController::class,'login']);
-Route::get('/phpinfo', function () {
-    return phpinfo();
-});
 
 //=== Admin Login Route ====
 Route::get('admin-login',[AdminLoginController::class,'index'])->name('show-login')->middleware('ip-restriction');

@@ -128,31 +128,49 @@
                             <div class="col-12">
                                     <div class="card">
                                         <div class="card-body">
+                                            <h3>This Year Total Sell And Payments !</h3>
+
                                             <div class="row">
-                                                <div class="col-12">
-                                                    <div>
-                                                        <form action="{{route('user-dashboard')}}" method="GET">
-                                                            @csrf
-                                                            <div class="d-flex">
-                                                                <div class="mr-2 d-flex align-items-center">
-                                                                    <label for="example-date" class="form-label" style="margin-right: 5px">From</label>
-                                                                    <input class="form-control" id="example-date" type="date" name="payment_date_form">
-                                                                </div>
-                                                                <div class="mr-2 d-flex align-items-center">
-                                                                    <label for="example-date" class="form-label" style="margin-right: 5px">To</label>
-                                                                    <input class="form-control" id="example-date" type="date" name="payment_date_to">
-                                                                </div>
-                                                                <button class="btn btn-primary" type="submit">
-                                                                    <i class="fas fa-filter"></i>
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
+
+                                                @php
+                                                    use Carbon\Carbon;
+
+                                                    $currentYear = Carbon::now()->year;
+                                                    $thisYearInvoices = \App\Models\Invoice::whereYear('created_at', $currentYear)->get();
+                                                    $thisYearPayments = \App\Models\Payment::whereYear('created_at', $currentYear)->get();
+                                                    $thisYearQuotation = \App\Models\Quotation::all()->count();
+
+                                                    $totalInvoiceValue = 0;
+
+                                                    foreach ($thisYearInvoices as $invoice) {
+                                                        $products = json_decode($invoice->products);
+
+                                                        $invoiceProductValue = 0;
+
+                                                        foreach ($products as $product) {
+                                                            $productValue = $product->quantity * $product->unit_price;
+                                                            $productValue -= $product->product_discount; // Adjusted for discount
+                                                            $invoiceProductValue += $productValue; // Accumulate product value for the current invoice
+                                                        }
+
+                                                        $totalInvoiceValue += $invoiceProductValue + $invoice->delivery_charge + $invoice->extra_amount - $invoice->discount;
+                                                    }
+
+                                                    $totalQuotation = \App\Models\Quotation::whereYear('created_at',$currentYear)->get()->count();
+
+                                                    $totalPayment = 0 ;
+                                                    foreach ($thisYearPayments as $payment){
+                                                        $totalPayment += $payment->amount;
+                                                    }
+
+                                                @endphp
+
+
+
                                                 <div class="col-6 mt-3 bg-success">
                                                     <div>
                                                         <h4>
-                                                            BDT {{floor($totalInvoiceSell)}}
+                                                            BDT {{number_format($totalInvoiceValue)}}
                                                         </h4>
                                                         <h5>
                                                             Total Sales
@@ -162,7 +180,7 @@
                                                 <div class="col-6 mt-3 bg-primary">
                                                     <div>
                                                         <h4>
-                                                            BDT 155452
+                                                            {{$totalQuotation}}
                                                         </h4>
                                                         <h5>
                                                             Total Quotation
@@ -170,9 +188,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-6 mt-3 bg-danger">
-                                                    <div>
+                                                    <div class="">
                                                         <h4>
-                                                            BDT 155452
+                                                            BDT {{number_format($totalPayment-$totalInvoiceValue)}}
                                                         </h4>
                                                         <h5>
                                                             Total Due
@@ -180,12 +198,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-6 mt-3 bg-warning">
-                                                    <div class="">
+                                                    <div>
                                                         <h4>
-                                                            BDT 155452
+                                                            BDT {{number_format($totalPayment)}}
                                                         </h4>
                                                         <h5>
-                                                            Sales
+                                                            Total Payment
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -193,6 +211,26 @@
                                             <hr>
                                             <div>
                                                 <h3>Last Payments</h3>
+                                                <hr>
+                                                <div>
+                                                    <form action="{{route('user-dashboard')}}" method="GET">
+                                                        @csrf
+                                                        <div class="d-flex">
+                                                            <div class="mr-2 d-flex align-items-center">
+                                                                <label for="example-date" class="form-label" style="margin-right: 5px">From</label>
+                                                                <input class="form-control" id="example-date" type="date" name="payment_date_form">
+                                                            </div>
+                                                            <div class="mr-2 d-flex align-items-center">
+                                                                <label for="example-date" class="form-label" style="margin-right: 5px">To</label>
+                                                                <input class="form-control" id="example-date" type="date" name="payment_date_to">
+                                                            </div>
+                                                            <button class="btn btn-primary" type="submit">
+                                                                <i class="fas fa-filter"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <hr>
                                                 <div class="table-responsive">
                                                     <table class="table mb-0">
                                                         <thead class="table-dark">
@@ -223,7 +261,7 @@
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
-                                                        <div class="payment-pagination">
+                                                        <div class="payment-pagination pagination-sm">
                                                             {{$payments->links('pagination::bootstrap-5')}}
                                                         </div>
                                                     </table>
