@@ -55,7 +55,7 @@ class ConquestInvoiceController extends Controller
             'product_name'=> 'required',
             'quantity'=> 'required',
             'unit_price'=> 'required',
-            'paid_amount' => 'required',
+            'paid_amount' => 'nullable',
         ]);
 
         $productNames = \request('product_name');
@@ -131,7 +131,7 @@ class ConquestInvoiceController extends Controller
             'product_name'=> 'required',
             'quantity'=> 'required',
             'unit_price'=> 'required',
-            'paid_amount' => 'required',
+            'paid_amount' => 'nullable',
         ]);
 
         $productNames = \request('product_name');

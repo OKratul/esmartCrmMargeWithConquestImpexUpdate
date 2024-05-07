@@ -497,7 +497,7 @@ Route::group(['middleware'=> 'userAuth'],function (){
 
 
 //    =============== Products And Categories ================
-    Route::get('user/all-products',[AddWebsiteDataController::class,'getdata'])->name('user-all-products');
+//    Route::get('user/all-products',[AddWebsiteDataController::class,'getdata'])->name('user-all-products');
 
 //    Route::get('user/product/add-products',[AddProductController::class,'productForm'])->name('user-add-products');
 //    Route::post('user/product/add-products',[AddProductController::class,'addProduct'])->name('user-product-added');
@@ -643,6 +643,8 @@ Route::group(['middleware'=> 'userAuth'],function (){
     Route::get('user/customer/profile/{id}/quotation/{quotation_id}/view-invoice-generator',[CustomerProfileController::class,'viewInvoiceGenerator'])->name('view-invoice-generator');
 
     Route::get('user/all-payments/{id}/money-rec',[PaymentController::class,'moneyRec'])->name('single-money_rec');
+
+    Route::get('user/esmart/products',[WoocommerceController::class,'products'])->name('user-woocommerce-products');
 
 
 

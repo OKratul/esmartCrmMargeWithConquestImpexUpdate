@@ -35,19 +35,5 @@ class AddWebsiteDataController extends Controller
     }
 
 
-    public function getdata()
-    {
-        $webData = WebApiData::all();
-
-// Create an instance of the WooCommerce Client
-         $api = new EsmartApiController();
-         $woocommerce = $api->api();
-
-         $products = $woocommerce->get('products');
-
-        // print_r($products);
-        return view('allProducts', compact('products'));
-
-    }
 
 }

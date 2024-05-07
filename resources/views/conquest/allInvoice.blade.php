@@ -186,7 +186,7 @@
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="myLargeModalLabel">Make Invoice</h4>
+                                                    <h4 class="modal-title" id="myLargeModalLabel">Edit Invoice</h4>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
@@ -248,7 +248,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                    <button type="button" class="btn btn-sm btn-soft-dark add-more-make-invoice" id="add-more-make-invoice">Add More</button>
+                                                                    <button type="button" class="btn btn-sm btn-soft-dark add-more-edit-invoice" >Add More</button>
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
@@ -350,7 +350,7 @@
                                     </div>
                                 </div>
                                <div>
-                                   <button type="button" class="btn btn-sm btn-soft-dark" id="add-more-make-invoice">Add More</button>
+                                   <button type="button" class="btn btn-sm btn-soft-dark" id="add_more_product_invoice">Add More</button>
                                </div>
                             </div>
                             <div class="col-6">
@@ -398,101 +398,123 @@
 <!-- Scripts -->
 @include('conquest.user.partials.layoutScripts')
 
+{{--Make Invoice Add More Product--}}
 <script type="text/javascript">
-    // ======== Quotation product details =======
 
-    let addButton = document.getElementById('add-more');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select the 'Add More' button
+        let addButton = document.getElementById('add_more_product_invoice');
 
-    addButton.addEventListener('click', function () {
-        let productContainer = document.querySelector('.add-product-div')
+        // Add click event listener to the 'Add More' button
+        addButton.addEventListener('click', function() {
+            // Get the container for product entries
+            let container = document.querySelector('.add-product-make-invoice');
 
-        let addProductDiv = document.createElement('div');
+            // Create a new product entry section
+            let div = document.createElement('div');
 
-        addProductDiv.innerHTML = `
-                                    <div class="mb-2 col-12">
-                                        <!-- Add remove button -->
-                                        <button class="remove_product btn btn-danger">Remove</button>
-                                    </div>
-                                    <div class="mb-2 col-12">
-                                        <label for="simpleinput" class="form-label">Select Product*</label>
-                                        <select name="product_name[]" class="form-select" aria-label="Default select example">
-                                            <option> </option>
-                                            @foreach($products as $product)
-                                <option value="{{$product->product_code}}">{{$product->name}}</option>
-                                            @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-2 col-12">
-                                <label for="simpleinput" class="form-label">Quantity</label>
-                                <input multiple name="quantity[]" type="text" id="simpleinput" class="form-control">
-                            </div>
-                            <div class="mb-2 col-12">
-                                <label for="simpleinput" class="form-label">Unit Price</label>
-                                <input multiple name="unit_price[]" type="text" id="simpleinput" class="form-control">
-                            </div>
-                            <hr>
-                        `;
+            // Set the HTML content for the new product entry section
+            div.innerHTML = `
+                <div>
+                    <div>
+                        <button class="btn btn-danger btn-sm remove_product" type="button">remove</button>
+                    </div>
+                    <div class="mb-2 col-12" >
+                        <label for="simpleinput" class="form-label">Select Product*</label>
+                        <select name="product_name[]" class="form-select" aria-label="Default select example">
+                            <option> </option>
+                            @foreach($products as $product)
+            <option value="{{$product->product_code}}">{{$product->name}}</option>
+                            @endforeach
+            </select>
+        </div>
+        <div class="mb-2 col-12">
+            <label for="simpleinput" class="form-label">Quantity</label>
+            <input multiple name="quantity[]" type="text" id="simpleinput" class="form-control">
+        </div>
+        <div class="mb-2 col-12">
+            <label for="simpleinput" class="form-label">Unit Price</label>
+            <input multiple name="unit_price[]" type="text" id="simpleinput" class="form-control">
+        </div>
+    </div>
+`;
 
-        productContainer.appendChild(addProductDiv);
+            // Append the new product entry section to the container
+            container.appendChild(div);
 
-        // Attach the event listener to the newly created remove button
-        let removeButton = addProductDiv.querySelector('.remove_product');
-        removeButton.addEventListener('click', function () {
-            // Remove the parent div when the remove button is clicked
-            this.parentNode.parentNode.remove();
+            // Add click event listener to the 'remove' button inside the new product entry section
+            let removeButton = div.querySelector('.remove_product');
+            removeButton.addEventListener('click', function() {
+                // Remove the product entry section when 'remove' button is clicked
+                div.remove();
+            });
         });
     });
+
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+{{--Edit Invoice Add More Product--}}
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        let addButtons = document.querySelectorAll('.add-more-make-invoice');
 
-        addButtons.forEach(function (addButton) {
-            addButton.addEventListener('click', function () {
-                let productContainer = this.closest('.modal-content').querySelector('.add-product-make-invoice');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all 'Add More' buttons
+        let addMoreButtons = document.querySelectorAll('.add-more-edit-invoice');
 
-                let addProductDiv = document.createElement('div');
+        // Loop through each 'Add More' button
+        addMoreButtons.forEach(function(button) {
+            // Add click event listener to each 'Add More' button
+            button.addEventListener('click', function() {
+                // Get the container for product entries
+                let container = this.closest('.modal-body').querySelector('.add-product-div');
 
-                addProductDiv.innerHTML = `
-                <div class="mb-2 col-12">
-                    <!-- Add remove button -->
-                    <button class="remove_product_make_invoice btn btn-danger">Remove</button>
-                </div>
-                <div class="mb-2 col-12">
-                    <label for="simpleinput" class="form-label">Select Product*</label>
-                    <select name="product_name[]" class="form-select" aria-label="Default select example">
-                        <option> </option>
-                        @foreach($products as $product)
+                // Create a new product entry section
+                let div = document.createElement('div');
+
+                // Set the HTML content for the new product entry section
+                div.innerHTML = `
+                    <div>
+                        <div>
+                            <button class="btn btn-danger btn-sm remove_product" type="button">remove</button>
+                        </div>
+                        <div class="mb-2 col-12">
+                            <label for="simpleinput" class="form-label">Select Product*</label>
+                            <select name="product_name[]" class="form-select" aria-label="Default select example">
+                                <option> </option>
+                                @foreach($products as $product)
                 <option value="{{$product->product_code}}">{{$product->name}}</option>
-                        @endforeach
+                                @endforeach
                 </select>
             </div>
             <div class="mb-2 col-12">
                 <label for="simpleinput" class="form-label">Quantity</label>
-                <input multiple name="quantity[]" type="text" class="form-control">
+                <input multiple name="quantity[]" type="text" id="simpleinput" class="form-control">
             </div>
             <div class="mb-2 col-12">
                 <label for="simpleinput" class="form-label">Unit Price</label>
-                <input multiple name="unit_price[]" type="text" class="form-control">
+                <input multiple name="unit_price[]" type="text" id="simpleinput" class="form-control">
             </div>
-            <hr>
+        </div>
 `;
 
-                productContainer.appendChild(addProductDiv);
+                // Append the new product entry section to the container
+                container.appendChild(div);
 
-                // Attach the event listener to the newly created remove button
-                let removeButton = addProductDiv.querySelector('.remove_product_make_invoice');
-                removeButton.addEventListener('click', function () {
-                    // Remove the parent div when the remove button is clicked
-                    this.parentNode.parentNode.remove();
+                // Add click event listener to the 'remove' button inside the new product entry section
+                let removeButtons = container.querySelectorAll('.remove_product');
+                removeButtons.forEach(function(removeButton) {
+                    removeButton.addEventListener('click', function() {
+                        // Remove the product entry section when 'remove' button is clicked
+                        div.remove();
+                    });
                 });
             });
         });
     });
+
 </script>
+
 
 
 

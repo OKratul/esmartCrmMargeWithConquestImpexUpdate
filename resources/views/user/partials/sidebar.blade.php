@@ -93,6 +93,13 @@
                 </li>
 
                 <li>
+                    <a href="{{route('user-woocommerce-products')}}">
+                        <i class="dripicons-shopping-bag"></i>
+                        <span> Products </span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="#contacts" data-bs-toggle="collapse">
                         <i class="mdi mdi-clipboard-outline"></i>
                         <span> Sales </span>

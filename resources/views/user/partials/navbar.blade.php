@@ -12,6 +12,8 @@
                             {{route('user-view-all-quotation')}}
                         @elseif(request()->routeIs('user-all-invoice'))
                             {{route('user-all-invoice')}}
+                        @elseif(request()->routeIs('user-woocommerce-products'))
+                            {{route('user-woocommerce-products')}}
                         @else
                             {{route('all-query')}}
                         @endif

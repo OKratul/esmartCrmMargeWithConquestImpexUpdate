@@ -1,3 +1,4 @@
+
 <div id="add-query-modal" class="modal fade" tabindex="-1" aria-labelledby="fullWidthModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-full-width">
         <div class="modal-content">
