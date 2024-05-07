@@ -58,7 +58,7 @@ class WoocommerceController extends Controller
             })
             ->orderByDesc('posts.post_date')
             ->paginate(20);
-        
+
 
         $querySources =QuerySource::all();
         $statuses = QueryStatus::all();
