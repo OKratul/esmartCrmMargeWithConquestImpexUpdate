@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\ConquestInvoiceExport;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AddProductController;
 use App\Http\Controllers\AddWebsiteDataController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\conquest\ConquestInvoiceController;
 use App\Http\Controllers\conquest\ConquestPaymentController;
 use App\Http\Controllers\conquest\ConquestProductController;
 use App\Http\Controllers\conquest\ConquestTransectionController;
+use App\Http\Controllers\ConquestExportController;
 use App\Http\Controllers\CustomerAddController;
 use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\DocumentsController;
@@ -462,11 +464,13 @@ Route::group(['middleware'=>'adminAuth'],function (){
 
 //        Excel Report
 
-
-
+        Route::get('/invoice/export',[ConquestExportController::class,'exportInvoice'])->name('conquest-invoice-export');
+        Route::get('/customer-data/export',[ConquestExportController::class,'exportCustomer'])->name('conquest-customer-data-export');
 
 
     });
+
+
 
 
 //    Export Excel Route
