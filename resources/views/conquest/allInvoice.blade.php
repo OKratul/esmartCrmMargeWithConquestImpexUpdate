@@ -181,109 +181,6 @@
                                     </div>
 
 {{--                                    Invoice Edit Modal--}}
-
-                                    <div class="modal fade" id="edit-invoice-modal-{{$invoice->id}}" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="myLargeModalLabel">Edit Invoice</h4>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{ route('conquest-edit-invoice',[$invoice->id]) }}" method="POST">
-                                                        @csrf
-                                                        <div class="row">
-                                                            <div class="mb-2 col-12">
-                                                                <label for="simpleinput" class="form-label">Select Customer*</label>
-                                                                <select name="customer" class="form-select" aria-label="Default select example">
-                                                                    <option> </option>
-                                                                    @foreach($customers as $customer)
-                                                                        <option {{$invoice->customers['id'] == $customer->id ? 'selected' : ''}} value="{{$customer->id}}">{{$customer->name}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row" >
-                                                            <div class="col-6" style="border-right: 1px solid #ccc">
-                                                                <div class="row add-product-div">
-
-                                                                    @php
-                                                                        $productId = explode('+', $invoice->product_id);
-                                                                        $quantity = explode('+', $invoice->quantity);
-                                                                        $unitPrice = explode('+', $invoice->unit_price);
-                                                                        $productCodes = [];
-
-                                                                        foreach ($productId as $i => $productIdItem) {
-                                                                            $productCodes[] = [
-                                                                                'productCode' => $productIdItem,
-                                                                                'quantity' => $quantity[$i],
-                                                                                'unitPrice' => $unitPrice[$i],
-                                                                            ];
-                                                                        }
-                                                                    @endphp
-
-                                                                    <div>
-                                                                        @foreach($productCodes as $productCode)
-                                                                            <div class="mb-2 col-12">
-                                                                                <label for="simpleinput" class="form-label">Select Product*</label>
-                                                                                <select name="product_name[]" class="form-select" aria-label="Default select example">
-                                                                                    <option> </option>
-                                                                                    @foreach($products as $product)
-                                                                                        <option {{ $productCode['productCode'] == $product->product_code ? 'selected' : '' }} value="{{ $product->product_code }}">
-                                                                                            {{ $product->name }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="mb-2 col-12">
-                                                                                <label for="simpleinput" class="form-label">Quantity</label>
-                                                                                <input value="{{$productCode['quantity']}}" name="quantity[]" type="text" id="simpleinput" class="form-control">
-                                                                            </div>
-                                                                            <div class="mb-2 col-12">
-                                                                                <label for="simpleinput" class="form-label">Unit Price</label>
-                                                                                <input value="{{$productCode['unitPrice']}}" name="unit_price[]" type="text" id="simpleinput" class="form-control">
-                                                                            </div>
-                                                                            <hr>
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
-                                                                <div>
-                                                                    <button type="button" class="btn btn-sm btn-soft-dark add-more-edit-invoice" >Add More</button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="row">
-                                                                    <div class="mb-2 col-12">
-                                                                        <label for="simpleinput" class="form-label">Delivery Charge</label>
-                                                                        <input value="{{$invoice->delivery_charge}}" name="delivery_charge" type="text" id="simpleinput" class="form-control">
-                                                                    </div>
-                                                                    <div class="mb-2 col-12">
-                                                                        <label for="simpleinput" class="form-label">Discount Amount</label>
-                                                                        <input value="{{$invoice->discount}}" name="discount_amount" type="text" id="simpleinput" class="form-control">
-                                                                    </div>
-                                                                    <div class="mb-2 col-12">
-                                                                        <label for="simpleinput" class="form-label">Paid Amount</label>
-                                                                        <input value="{{$invoice->paid}}" name="paid_amount" type="text" id="simpleinput" class="form-control">
-                                                                    </div>
-                                                                    <div class="mb-2 col-12">
-                                                                        <label for="simpleinput" class="form-label">Date</label>
-                                                                        <input value="{{$invoice->date}}" name="date" type="date" required id="simpleinput" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Other input fields... -->
-
-                                                        <div class="text-center mt-2">
-                                                            <button type="submit" class="btn btn-primary">
-                                                                Submit <i class="fe-user-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div>
-                                    </div>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -303,6 +200,118 @@
     <!-- ============================================================== -->
     <!-- End Page content -->
     <!-- ============================================================== -->
+
+
+{{--    Edit Invoice Modal --}}
+
+
+    @foreach($invoices as $invoice)
+
+        <div class="modal fade" id="edit-invoice-modal-{{$invoice->id}}" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Edit Invoice</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('conquest-edit-invoice',[$invoice->id]) }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="mb-2 col-12">
+                                    <label for="simpleinput" class="form-label">Select Customer*</label>
+                                    <select name="customer" class="form-select" aria-label="Default select example">
+                                        <option> </option>
+                                        @foreach($customers as $customer)
+                                            <option {{$invoice->customers['id'] == $customer->id ? 'selected' : ''}} value="{{$customer->id}}">{{$customer->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6" style="border-right: 1px solid #ccc">
+                                    <div class="row add-product-div">
+
+                                        @php
+                                            $productId = explode('+', $invoice->product_id);
+                                            $quantity = explode('+', $invoice->quantity);
+                                            $unitPrice = explode('+', $invoice->unit_price);
+                                            $productCodes = [];
+
+                                            foreach ($productId as $i => $productIdItem) {
+                                                $productCodes[] = [
+                                                    'productCode' => $productIdItem,
+                                                    'quantity' => $quantity[$i],
+                                                    'unitPrice' => $unitPrice[$i],
+                                                ];
+                                            }
+                                        @endphp
+
+                                        <div>
+                                            @foreach($productCodes as $productCode)
+                                                <div class="mb-2 col-12">
+                                                    <label for="simpleinput" class="form-label">Select Product*</label>
+                                                    <select name="product_name[]" class="form-select" aria-label="Default select example">
+                                                        <option> </option>
+                                                        @foreach($products as $product)
+                                                            <option {{ $productCode['productCode'] == $product->product_code ? 'selected' : '' }} value="{{ $product->product_code }}">
+                                                                {{ $product->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="mb-2 col-12">
+                                                    <label for="simpleinput" class="form-label">Quantity</label>
+                                                    <input value="{{$productCode['quantity']}}" name="quantity[]" type="text" id="simpleinput" class="form-control">
+                                                </div>
+                                                <div class="mb-2 col-12">
+                                                    <label for="simpleinput" class="form-label">Unit Price</label>
+                                                    <input value="{{$productCode['unitPrice']}}" name="unit_price[]" type="text" id="simpleinput" class="form-control">
+                                                </div>
+                                                <hr>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-soft-dark add-more-edit-invoice" >Add More</button>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="mb-2 col-12">
+                                            <label for="simpleinput" class="form-label">Delivery Charge</label>
+                                            <input value="{{$invoice->delivery_charge}}" name="delivery_charge" type="text" id="simpleinput" class="form-control">
+                                        </div>
+                                        <div class="mb-2 col-12">
+                                            <label for="simpleinput" class="form-label">Discount Amount</label>
+                                            <input value="{{$invoice->discount}}" name="discount_amount" type="text" id="simpleinput" class="form-control">
+                                        </div>
+                                        <div class="mb-2 col-12">
+                                            <label for="simpleinput" class="form-label">Paid Amount</label>
+                                            <input value="{{$invoice->paid}}" name="paid_amount" type="text" id="simpleinput" class="form-control">
+                                        </div>
+                                        <div class="mb-2 col-12">
+                                            <label for="simpleinput" class="form-label">Date</label>
+                                            <input value="{{$invoice->date}}" name="date" type="date" required id="simpleinput" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Other input fields... -->
+
+                            <div class="text-center mt-2">
+                                <button type="submit" class="btn btn-primary">
+                                    Submit <i class="fe-user-plus"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </div>
+
+    @endforeach
+
 
     {{-- Make Invoice Modal --}}
     <div class="modal fade" id="add-invoice-modal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">

@@ -124,73 +124,76 @@ class ConquestInvoiceController extends Controller
 
     }
 
-    public function editInvoice($id){
-
-        $this->validate(\request(),[
+    public function editInvoice($id)
+    {
+        $this->validate(request(), [
             'customer' => 'required',
-            'product_name'=> 'required',
-            'quantity'=> 'required',
-            'unit_price'=> 'required',
+            'product_name' => 'required|array',
+            'quantity' => 'required|array',
+            'unit_price' => 'required|array',
             'paid_amount' => 'nullable',
         ]);
 
-        $productNames = \request('product_name');
-        $quantity = \request('quantity');
-        $unitPrice =\request('unit_price');
-
+        $newProductNames = request('product_name');
+        $newQuantities = request('quantity');
+        $newUnitPrices = request('unit_price');
 
         $totalPrices = [];
 
-        foreach ($productNames as $index => $productName) {
-            // Assuming $quantity and $unitPrice are arrays with the same indexes as $productNames
-            $quantityValue = $quantity[$index];
-            $unitPriceValue = $unitPrice[$index];
+        $invoice = ConquestInvoice::where('id', $id)->first();
+        $originalProductNames = explode('+', $invoice['product_id']);
+        $originalQuantities = explode('+', $invoice['quantity']);
 
-            // Calculate total price for the current product
-            $totalPrice = $quantityValue * $unitPriceValue;
-
-            // Store the total price in an array
-            $totalPrices[$productName] = $totalPrice;
-
-            $product = ConquestProduct::where('product_code',$productName)->first();
-
-            $stockQty = $product['quantity'] - $quantityValue;
-
+        // Restore original stock quantities
+        foreach ($originalProductNames as $index => $originalProductName) {
+            $originalQuantity = $originalQuantities[$index];
+            $product = ConquestProduct::where('product_code', $originalProductName)->first();
             $product->update([
-                'quantity' => $stockQty,
+                'quantity' => $product['quantity'] + $originalQuantity,
             ]);
+        }
 
+        // Calculate new total prices and update stock quantities
+        foreach ($newProductNames as $index => $newProductName) {
+            $newQuantity = $newQuantities[$index];
+            $newUnitPrice = $newUnitPrices[$index];
+
+            $totalPrice = $newQuantity * $newUnitPrice;
+            $totalPrices[$newProductName] = $totalPrice;
+
+            $product = ConquestProduct::where('product_code', $newProductName)->first();
+            $product->update([
+                'quantity' => $product['quantity'] - $newQuantity,
+            ]);
         }
 
         $formattedTotalPrices = implode('+', $totalPrices);
         $totalSum = array_sum($totalPrices);
 
-        $productName = implode('+', $productNames);
-        $quantity = implode('+', $quantity);
-        $unitPrice = implode('+',$unitPrice);
+        $productName = implode('+', $newProductNames);
+        $quantity = implode('+', $newQuantities);
+        $unitPrice = implode('+', $newUnitPrices);
 
-        $due = $totalSum - \request('paid_amount');
-        $date = \request('date');
+        $due = $totalSum - request('paid_amount');
+        $date = request('date');
 
-        $invoice = ConquestInvoice::where('id',$id)->first();
-
-        ConquestInvoice::where('id',$id)->update([
+        ConquestInvoice::where('id', $id)->update([
             'invoice_number' => $invoice['invoice_number'],
-            'customer_id' => \request('customer'),
+            'customer_id' => request('customer'),
             'product_id' => $productName,
             'quantity' => $quantity,
             'unit_price' => $unitPrice,
             'total_price' => $formattedTotalPrices,
-            'all_total_price'=> $totalSum,
-            'delivery_charge' => \request('delivery_charge'),
-            'paid' => \request('paid_amount'),
+            'all_total_price' => $totalSum,
+            'delivery_charge' => request('delivery_charge'),
+            'paid' => request('paid_amount'),
             'due' => $due,
             'status' => 'not sent',
-            'discount'=> \request('discount_amount'),
-            'date' =>  $date,
+            'discount' => request('discount_amount'),
+            'date' => $date,
         ]);
 
-        return redirect()->back()->with('success','Invoice Update Successfully');
+        return redirect()->back()->with('success', 'Invoice Updated Successfully');
     }
 
 
